@@ -1,6 +1,5 @@
 package com.solvd.laba.members;
 
-import com.solvd.laba.administrative.sections.Speciality;
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.answer.quiz.IAnswerQuiz;
 import com.solvd.laba.quizes.Quiz;

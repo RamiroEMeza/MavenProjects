@@ -3,10 +3,6 @@ package com.solvd.laba.custom.linked.list;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.AbstractList;
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
 public class CustomLinkedList<T>{
     private static final Logger LOGGER = LogManager.getLogger();
@@ -24,6 +20,7 @@ public class CustomLinkedList<T>{
             }
         }
         this.head = node;
+        this.size++;
     }
 
     public void display(){

@@ -1,7 +1,6 @@
 package com.solvd.laba;
 
 import com.solvd.laba.administrative.sections.University;
-import com.solvd.laba.custom.linked.list.CustomLinkedList;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;

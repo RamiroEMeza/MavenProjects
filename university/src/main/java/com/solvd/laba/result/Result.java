@@ -1,8 +1,5 @@
 package com.solvd.laba.result;
 
-import com.solvd.laba.university.administrative.sections.Subject;
-import com.solvd.laba.university.members.Student;
-
 public class Result {
     private String student;
     private String subject;

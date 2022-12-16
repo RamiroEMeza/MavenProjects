@@ -1,4 +1,4 @@
-package com.solvd.laba.university.members;
+package com.solvd.laba.members;
 
 public abstract class Member {
     private String name;

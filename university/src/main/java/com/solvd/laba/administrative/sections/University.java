@@ -1,6 +1,6 @@
-package com.solvd.laba.university.administrative.sections;
+package com.solvd.laba.administrative.sections;
 
-import com.solvd.laba.university.members.Teacher;
+import com.solvd.laba.members.Teacher;
 import com.solvd.laba.cost.ICalculateCost;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;

@@ -1,7 +1,7 @@
-package com.solvd.laba.university.members;
+package com.solvd.laba.members;
 
-import com.solvd.laba.university.administrative.sections.Subject;
-import com.solvd.laba.university.quizes.Quiz;
+import com.solvd.laba.administrative.sections.Subject;
+import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
 import java.util.HashMap;

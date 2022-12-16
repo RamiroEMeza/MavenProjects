@@ -1,21 +1,22 @@
 package com.solvd.laba;
 
-import com.solvd.laba.university.administrative.sections.University;
+import com.solvd.laba.administrative.sections.University;
+import com.solvd.laba.custom.linked.list.CustomLinkedList;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
 import com.solvd.laba.exeptions.NoUniversityInReferenceException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import com.solvd.laba.university.helpers.UniversityCreator;
-import com.solvd.laba.university.members.Student;
-import com.solvd.laba.university.members.Teacher;
+import com.solvd.laba.helpers.UniversityCreator;
+import com.solvd.laba.members.Student;
+import com.solvd.laba.members.Teacher;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -58,9 +59,24 @@ public class Main {
 
         int userRequest;
         BufferedReader readRequest = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println(LOGGER.isInfoEnabled());
         do {
             LOGGER.info("Start of the program");
+
+
+            CustomLinkedList<Integer> customLinkedList = new CustomLinkedList<>();
+            customLinkedList.insertFirst(44);
+            customLinkedList.insertFirst(33);
+            customLinkedList.insertFirst(12);
+            customLinkedList.insertFirst(8);
+            customLinkedList.insertFirst(4);
+            customLinkedList.display();
+            customLinkedList.displayReverse();
+
+
+
+
+
+
             //Create a university
             University ohioU = null;
             try {
@@ -98,8 +114,10 @@ public class Main {
             }
 
             teachers.get(0).ExamStudents();
-            response = teachers.get(0).giveResults();
-            LOGGER.info(response.toString());
+            //response = teachers.get(0).giveResults();
+            //LOGGER.info(response.toString());
+            teachers.get(0).giveBackupResults();//Using custom linked list
+
 
 
             do {

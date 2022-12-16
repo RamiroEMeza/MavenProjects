@@ -1,4 +1,4 @@
-package com.solvd.laba.university.administrative.sections;
+package com.solvd.laba.administrative.sections;
 
 import com.solvd.laba.cost.ICalculateCost;
 

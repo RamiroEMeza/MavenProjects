@@ -1,4 +1,4 @@
-package com.solvd.laba.university.members;
+package com.solvd.laba.members;
 
 public class Administrative extends Member {
     private String workplace;

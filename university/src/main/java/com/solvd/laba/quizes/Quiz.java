@@ -1,8 +1,8 @@
-package com.solvd.laba.university.quizes;
+package com.solvd.laba.quizes;
 
 import com.solvd.laba.evaluate.IEvaluate;
-import com.solvd.laba.university.questions.MultipleChoise;
-import com.solvd.laba.university.questions.TrueFalse;
+import com.solvd.laba.questions.MultipleChoise;
+import com.solvd.laba.questions.TrueFalse;
 
 import java.util.HashMap;
 import java.util.Random;

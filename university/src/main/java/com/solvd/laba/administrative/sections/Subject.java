@@ -1,10 +1,11 @@
-package com.solvd.laba.university.administrative.sections;
+package com.solvd.laba.administrative.sections;
 
 import com.solvd.laba.cost.ICalculateCost;
+import com.solvd.laba.custom.linked.list.CustomLinkedList;
 import com.solvd.laba.result.Result;
-import com.solvd.laba.university.members.Student;
-import com.solvd.laba.university.members.Teacher;
-import com.solvd.laba.university.quizes.Quiz;
+import com.solvd.laba.members.Student;
+import com.solvd.laba.members.Teacher;
+import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public class Subject extends AdmnistrativeSection {
 
     private ArrayList<Result> results;
 
+    private CustomLinkedList<Result> backupResults;
+
     public Subject(String name, int hours, Teacher teacher, Quiz quiz, ICalculateCost cost) {
         super(name, cost);
         this.hours = hours;
@@ -26,6 +29,7 @@ public class Subject extends AdmnistrativeSection {
         this.addQuiz(quiz);
         this.students = new ArrayList<>();
         this.results = new ArrayList<>();
+        this.backupResults = new CustomLinkedList<>();
         teacher.addSubject(this);
     }
 
@@ -91,6 +95,7 @@ public class Subject extends AdmnistrativeSection {
                 answer = s.answerQuiz(q);//student answer the quiz
                 q.receiveAnswers(answer);//the quiz receives the answers
                 this.results.add(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
+                this.backupResults.insertFirst(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
                 q.clear();
             }
         }
@@ -102,5 +107,9 @@ public class Subject extends AdmnistrativeSection {
             results.add(r.toString());
         }
         return results;
+    }
+
+    public void displayBackupResults() {
+        this.backupResults.display();
     }
 }

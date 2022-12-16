@@ -1,16 +1,16 @@
-package com.solvd.laba.university.helpers;
+package com.solvd.laba.helpers;
 
 import com.solvd.laba.cost.FixedCost;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
-import com.solvd.laba.university.administrative.sections.College;
-import com.solvd.laba.university.administrative.sections.Speciality;
-import com.solvd.laba.university.administrative.sections.Subject;
-import com.solvd.laba.university.administrative.sections.University;
-import com.solvd.laba.university.members.Student;
-import com.solvd.laba.university.members.Teacher;
-import com.solvd.laba.university.quizes.Quiz;
+import com.solvd.laba.members.Student;
+import com.solvd.laba.members.Teacher;
+import com.solvd.laba.administrative.sections.College;
+import com.solvd.laba.administrative.sections.Speciality;
+import com.solvd.laba.administrative.sections.Subject;
+import com.solvd.laba.administrative.sections.University;
+import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -49,7 +49,7 @@ public final class UniversityCreator {
             try {
                 Subject s = new Subject(("Subject-" + i), 40,
                         teachers.get(UniversityCreator.getRandomInt(0, (teachers.size() - 1))),
-                        new Quiz(4, 6, 0.7),
+                        new Quiz(4, 6, 0.4),
                         new FixedCost(UniversityCreator.getRandomInt(50, 210)));
                 s.addStudent(student);
                 university.addSubjectToSpeciality

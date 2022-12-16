@@ -1,12 +1,12 @@
-package com.solvd.laba.university.questions;
+package com.solvd.laba.questions;
 
 import com.solvd.laba.evaluate.IEvaluate;
 
-public final class TrueFalse implements IEvaluate {
-    private boolean expectedAnswer;
-    private boolean actualAnswer;
+public class MultipleChoise implements IEvaluate {
+    private char expectedAnswer;
+    private char actualAnswer;
 
-    public TrueFalse(boolean expectedAnswer) {
+    public MultipleChoise(char expectedAnswer) {
         this.expectedAnswer = expectedAnswer;
     }
 
@@ -17,10 +17,10 @@ public final class TrueFalse implements IEvaluate {
 
     @Override
     public String acceptableAnswers() {
-        return "boolean";
+        return "character";
     }
 
     public void setActualAnswer(String actualAnswer) {
-        this.actualAnswer = Boolean.parseBoolean(actualAnswer);
+        this.actualAnswer = actualAnswer.charAt(0);
     }
 }

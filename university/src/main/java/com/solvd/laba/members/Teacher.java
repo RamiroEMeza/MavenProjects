@@ -1,7 +1,7 @@
-package com.solvd.laba.university.members;
+package com.solvd.laba.members;
 
 import com.solvd.laba.exam.IExamStudents;
-import com.solvd.laba.university.administrative.sections.Subject;
+import com.solvd.laba.administrative.sections.Subject;
 
 import java.util.ArrayList;
 
@@ -55,4 +55,9 @@ public class Teacher extends Member implements IExamStudents {
         }
     }
 
+    public void giveBackupResults() {
+        for (Subject subject : this.currentlyAsignedSubjects) {
+            subject.displayBackupResults();
+        }
+    }
 }

@@ -51,14 +51,14 @@ public final class UniversityCreator {
                         teachers.get(UniversityCreator.getRandomInt(0, (teachers.size() - 1))),
                         new Quiz(4, 6, 0.4),
                         new FixedCost(UniversityCreator.getRandomInt(50, 210)));
+
                 s.addStudent(student);
-                university.addSubjectToSpeciality
-                        (UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
+
+                university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
                                 s);
             } catch (NoSpecialtiesFoundException | InvalidIDException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
-
             }
         }
 

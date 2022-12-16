@@ -38,8 +38,6 @@ public class Main {
             teachers.add(new Teacher("Teacher " + i, i, i));
         }
     }
-
-
     public static void main(String[] args) throws NoSpecialtiesFoundException {
         final String UNIVERSITY_NAME = "Ohio U";
         final int QUANTITY_OF_TEACHERS = 5;
@@ -61,21 +59,6 @@ public class Main {
         BufferedReader readRequest = new BufferedReader(new InputStreamReader(System.in));
         do {
             LOGGER.info("Start of the program");
-
-
-            CustomLinkedList<Integer> customLinkedList = new CustomLinkedList<>();
-            customLinkedList.insertFirst(44);
-            customLinkedList.insertFirst(33);
-            customLinkedList.insertFirst(12);
-            customLinkedList.insertFirst(8);
-            customLinkedList.insertFirst(4);
-            customLinkedList.display();
-            customLinkedList.displayReverse();
-
-
-
-
-
 
             //Create a university
             University ohioU = null;
@@ -116,6 +99,8 @@ public class Main {
             teachers.get(0).ExamStudents();
             //response = teachers.get(0).giveResults();
             //LOGGER.info(response.toString());
+            //ohioU.orderExams();
+            //ohioU.requestResultsExam(0);
             teachers.get(0).giveBackupResults();//Using custom linked list
 
 

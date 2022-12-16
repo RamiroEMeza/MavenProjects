@@ -1,13 +1,14 @@
 package com.solvd.laba.members;
 
 import com.solvd.laba.administrative.sections.Subject;
+import com.solvd.laba.answer.quiz.IAnswerQuiz;
 import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Student extends Member {
+public class Student extends Member implements IAnswerQuiz {
     public static final Random RANDOM = new Random();
     private ArrayList<Subject> aprobbedSubjects;
     private ArrayList<Subject> historicEnrolledSubjects;

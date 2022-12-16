@@ -2,10 +2,11 @@ package com.solvd.laba.members;
 
 import com.solvd.laba.exam.IExamStudents;
 import com.solvd.laba.administrative.sections.Subject;
+import com.solvd.laba.exam.IGiveResults;
 
 import java.util.ArrayList;
 
-public class Teacher extends Member implements IExamStudents {
+public class Teacher extends Member implements IExamStudents, IGiveResults {
     private int rating;
     private ArrayList<Subject> currentlyAsignedSubjects;
 
@@ -24,6 +25,12 @@ public class Teacher extends Member implements IExamStudents {
             rating *= (-1);
         }
         this.rating = rating;
+    }
+
+    public void addSubject(Subject s){
+        if (s != null){
+            this.currentlyAsignedSubjects.add(s);
+        }
     }
 
     @Override
@@ -48,13 +55,7 @@ public class Teacher extends Member implements IExamStudents {
         }
         return results;
     }
-
-    public void addSubject(Subject s){
-        if (s != null){
-            this.currentlyAsignedSubjects.add(s);
-        }
-    }
-
+    @Override
     public void giveBackupResults() {
         for (Subject subject : this.currentlyAsignedSubjects) {
             subject.displayBackupResults();

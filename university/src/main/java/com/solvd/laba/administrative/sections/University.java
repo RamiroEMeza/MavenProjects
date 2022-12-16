@@ -12,12 +12,10 @@ import java.util.Objects;
 
 public class University extends AdmnistrativeSection {
     private ArrayList<College> colleges;
-    private ArrayList<Teacher> teachers;
 
     public University(String name, ICalculateCost cost) {
         super(name, cost);
         this.colleges = new ArrayList<>();
-        this.teachers = new ArrayList<>();
     }
 
     @Override
@@ -37,7 +35,7 @@ public class University extends AdmnistrativeSection {
 
     @Override
     public String toString() {
-        return this.getName() + " has " + this.colleges + " hires " + this.teachers + " teachers"
+        return this.getName() + " has " + this.colleges + " hires "  + " teachers"
                 + " and cost " + this.getBaseCost();
     }
 
@@ -49,20 +47,6 @@ public class University extends AdmnistrativeSection {
             }
         }
         return result + this.getBaseCost();
-    }
-
-    public void addTeacher(Teacher teacher) {
-        if (!this.teachers.contains(teacher)) {
-            this.teachers.add(teacher);
-        }
-    }
-
-    public void deleteTeacher(int index) throws NoTeacherException {
-        if (index >= 0 && index < this.teachers.size()) {
-            this.teachers.remove(index);
-        } else {
-            throw new NoTeacherException("Index didn't match with any teacher");
-        }
     }
 
     public void addCollege(College college) {
@@ -108,30 +92,9 @@ public class University extends AdmnistrativeSection {
         }
     }
 
-    public Teacher getTeacher(int index) throws NoTeacherException {
-        if (index >= 1 && index <= this.teachers.size()) {
-            return this.teachers.get(index - 1);
-        } else {
-            throw new NoTeacherException("No teacher founded");
-        }
-    }
 
-    public ArrayList<String> getTeachers() throws NoTeacherException {
-        ArrayList<String> response = new ArrayList<>();
-        for (Teacher c : this.teachers) {
-            response.add(c.getName());
-        }
 
-        if (response.size() < 1) {
-            throw new NoTeacherException("No teachers founded");
-        }
 
-        return response;
-    }
-
-    public int getTeachersQuantity() {
-        return this.teachers.size();
-    }
 
     @Override
     public int getQuantityOfStudents() {
@@ -203,4 +166,37 @@ public class University extends AdmnistrativeSection {
             }
         }
     }
+
+//    public void orderExams() {
+//        for (Teacher t : this.teachers) {
+//            t.ExamStudents();
+//        }
+//    }
+//
+//    public void requestResultsExam(int i) {
+//        this.teachers.get(i).giveBackupResults();
+//    }
+
+//    public int getTeachersQuantity() {
+//        return this.teachers.size();
+//    }
+
+    //    public Teacher getTeacher(int index) throws NoTeacherException {
+//        if (index >= 1 && index <= this.teachers.size()) {
+//            return this.teachers.get(index - 1);
+//        } else {
+//            throw new NoTeacherException("No teacher founded");
+//        }
+//    }
+//    public ArrayList<String> getTeachers() throws NoTeacherException {
+//        ArrayList<String> response = new ArrayList<>();
+//        for (Teacher c : this.teachers) {
+//            response.add(c.getName());
+//        }
+//
+//        if (response.size() < 1) {
+//            throw new NoTeacherException("No teachers founded");
+//        }
+//        return response;
+//    }
 }

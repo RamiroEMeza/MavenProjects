@@ -1,5 +1,6 @@
 package com.solvd.laba.members;
 
+import com.solvd.laba.administrative.sections.Speciality;
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.answer.quiz.IAnswerQuiz;
 import com.solvd.laba.quizes.Quiz;
@@ -42,6 +43,19 @@ public class Student extends Member implements IAnswerQuiz {
             index++;
         }
         return answers;
+    }
+
+    public void addApprobedSubject(Subject s){
+        for (Subject enrolled: this.historicEnrolledSubjects) {
+            if (enrolled.getName().equals(s.getName())){
+                this.historicEnrolledSubjects.remove(enrolled);
+            }
+        }
+        this.aprobbedSubjects.add(s);
+    }
+
+    public void addHistoricEnrolledSubjects(Subject s){
+        this.aprobbedSubjects.add(s);
     }
 
 

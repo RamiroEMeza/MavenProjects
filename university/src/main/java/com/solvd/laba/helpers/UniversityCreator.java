@@ -53,6 +53,7 @@ public final class UniversityCreator {
                         new FixedCost(UniversityCreator.getRandomInt(50, 210)));
 
                 s.addStudent(student);
+                student.addHistoricEnrolledSubjects(s);
 
                 university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
                                 s);

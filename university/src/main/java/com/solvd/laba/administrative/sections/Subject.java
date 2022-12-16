@@ -95,6 +95,9 @@ public class Subject extends AdmnistrativeSection {
                 answer = s.answerQuiz(q);//student answer the quiz
                 q.receiveAnswers(answer);//the quiz receives the answers
                 this.results.add(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
+                if (q.isAproved()){
+                    s.addApprobedSubject(this);
+                }
                 this.backupResults.insertFirst(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
                 q.clear();
             }

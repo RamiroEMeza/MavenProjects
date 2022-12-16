@@ -96,15 +96,6 @@ public class Main {
                 LOGGER.error(nSFException.getMessage());
             }
 
-            teachers.get(0).ExamStudents();
-            //response = teachers.get(0).giveResults();
-            //LOGGER.info(response.toString());
-            //ohioU.orderExams();
-            //ohioU.requestResultsExam(0);
-            teachers.get(0).giveBackupResults();//Using custom linked list
-
-
-
             do {
                 try {//Ask user if he wants info about any speciality
                     LOGGER.info("\nIf you want to know the cost of any of ours specialities, " +
@@ -147,6 +138,13 @@ public class Main {
             } while (userRequest != 0);
 
         } while (userRequest != 0);
+        LOGGER.info("EXAM STUDENTS");
+        teachers.get(0).ExamStudents();
+        //response = teachers.get(0).giveResults();
+        //LOGGER.info(response.toString());
+        //ohioU.orderExams();
+        //ohioU.requestResultsExam(0);
+        teachers.get(0).giveBackupResults();//Using custom linked list
         LOGGER.info("END MAIN");
     }
 }

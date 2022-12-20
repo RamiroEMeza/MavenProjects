@@ -80,9 +80,9 @@ public class Quiz {
 
     public void clear() {
         for (IEvaluate iEvaluate : questionsMap.values()) {
-            if (iEvaluate.acceptableAnswers().equals("character")){
+            if (iEvaluate.acceptableAnswers().equals("character")) {
                 iEvaluate.setActualAnswer("z");
-            }else {
+            } else {
                 iEvaluate.setActualAnswer(null);
             }
         }

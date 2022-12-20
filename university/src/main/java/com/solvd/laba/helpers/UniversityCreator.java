@@ -1,6 +1,10 @@
 package com.solvd.laba.helpers;
 
 import com.solvd.laba.cost.FixedCost;
+import com.solvd.laba.enums.CollegesNames;
+import com.solvd.laba.enums.Regions;
+import com.solvd.laba.enums.SpecialitiesNames;
+import com.solvd.laba.enums.SubjectsNames;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
@@ -16,47 +20,50 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class UniversityCreator {
+    public final int MIN_BIG_COST = 100;
+    public final int MAX_BIG_COST = 2000;
+    public final int MIN_SMALL_COST = 50;
+    public final int MAX_SMALL_COST = 210;
+
     public static int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    public University create(String name, int cost, String[] collegesNames, String[] specialitiesNames,
-                             ArrayList<Teacher> teachers, int subjectsQuantity, Student student)
+    public University create(String name, ArrayList<Teacher> teachers, Student student)
             throws NoCollegesException, NoSpecialtiesFoundException, InvalidIDException {
         //Create a university
-        University university = new University(name, new FixedCost(UniversityCreator.getRandomInt(100, 2000)));
+        University university = new University(name, new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)));
 
         //add colleges to the university
-        for (int i = 0; i < collegesNames.length; i++) {
-            university.addCollege(new College(("College of " + collegesNames[i]), new FixedCost(
-                    UniversityCreator.getRandomInt(100, 2000)), (i + 1)));
+        for (CollegesNames cn : CollegesNames.values()) {
+            university.addCollege(new College(("College of " + cn), new FixedCost(
+                    UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal())));
         }
 
         //add specialities to the colleges
-        for (int i = 0; i < specialitiesNames.length; i++) {
+        for (SpecialitiesNames sn : SpecialitiesNames.values()) {
             try {
                 university.addSpeciality(UniversityCreator.getRandomInt(1, (university.getColleges().size() - 1)),
-                        new Speciality(specialitiesNames[i], (i + 1),
-                                new FixedCost(UniversityCreator.getRandomInt(100, 2000))));
+                        new Speciality(sn.toString(), sn.ordinal() + 1,
+                                new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST))));
             } catch (NoCollegesException nCE) {
                 throw new NoCollegesException("No Colleges in " + name);
             }
         }
 
-
         //add subjects to the specialities
-        for (int i = 1; i < (subjectsQuantity + 1); i++) {
+        for (SubjectsNames sn : SubjectsNames.values()) {
             try {
-                Subject s = new Subject(("Subject-" + i), 40,
+                Subject s = new Subject(sn.toString(), 40,
                         teachers.get(UniversityCreator.getRandomInt(0, (teachers.size() - 1))),
                         new Quiz(4, 6, 0.4),
-                        new FixedCost(UniversityCreator.getRandomInt(50, 210)));
+                        new FixedCost(UniversityCreator.getRandomInt(MIN_SMALL_COST, MAX_SMALL_COST)));
 
                 s.addStudent(student);
                 student.addHistoricEnrolledSubjects(s);
 
                 university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
-                                s);
+                        s);
             } catch (NoSpecialtiesFoundException | InvalidIDException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();

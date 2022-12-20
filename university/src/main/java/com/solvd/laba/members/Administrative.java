@@ -1,10 +1,12 @@
 package com.solvd.laba.members;
 
+import com.solvd.laba.enums.Regions;
+
 public class Administrative extends Member {
     private String workplace;
 
-    public Administrative(String name, int idNumber) {
-        super(name, idNumber);
+    public Administrative(String name, int idNumber, Regions region) {
+        super(name, idNumber, region);
     }
 
     @Override

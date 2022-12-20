@@ -6,11 +6,15 @@ import com.solvd.laba.result.Result;
 import com.solvd.laba.members.Student;
 import com.solvd.laba.members.Teacher;
 import com.solvd.laba.quizes.Quiz;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Predicate;
 
 public class Subject extends AdmnistrativeSection {
+    private static final Logger LOGGER = LogManager.getLogger();
     private int hours;
     private ArrayList<Teacher> teachers;
     private ArrayList<Quiz> quizes;
@@ -95,7 +99,7 @@ public class Subject extends AdmnistrativeSection {
                 answer = s.answerQuiz(q);//student answer the quiz
                 q.receiveAnswers(answer);//the quiz receives the answers
                 this.results.add(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
-                if (q.isAproved()){
+                if (q.isAproved()) {
                     s.addApprobedSubject(this);
                 }
                 this.backupResults.insertFirst(new Result(s.getName(), this.getName(), q.isAproved(), q.getResult()));
@@ -115,4 +119,24 @@ public class Subject extends AdmnistrativeSection {
     public void displayBackupResults() {
         this.backupResults.display();
     }
+
+    public ArrayList<Student> searchStudents(Predicate<Student> predicate) {
+        ArrayList<Student> result = new ArrayList<Student>();
+        for (Student s : this.students) {
+            if (predicate.test(s)) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    public void printStudents(Predicate<Student> predicate) {
+        ArrayList<Student> toPrint = new ArrayList<Student>();
+        toPrint = this.searchStudents(predicate);
+        for (Student s : toPrint) {
+            LOGGER.info(s.getName());
+        }
+    }
+
+
 }

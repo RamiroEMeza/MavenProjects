@@ -4,18 +4,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class CustomLinkedList<T>{
+public class CustomLinkedList<T> {
     private static final Logger LOGGER = LogManager.getLogger();
     private CustomNode<T> head;
     private CustomNode<T> tail;
     private int size;
 
-    public void insertFirst(T value){
+    public void insertFirst(T value) {
         CustomNode<T> node = new CustomNode<>(value);
         node.setNext(this.head);
         if (this.head != null) {
             this.head.setPrevious(node);
-            if (this.tail == null){
+            if (this.tail == null) {
                 this.tail = this.head;
             }
         }
@@ -23,15 +23,15 @@ public class CustomLinkedList<T>{
         this.size++;
     }
 
-    public void display(){
+    public void display() {
         CustomNode<T> node = this.head;
         while (node != null) {
-            LOGGER.info(node.getData() );
+            LOGGER.info(node.getData());
             node = node.getNext();
         }
     }
 
-    public void displayReverse(){
+    public void displayReverse() {
         CustomNode<T> node = this.tail;
         while (node != null) {
             LOGGER.info(node.getData());

@@ -2,6 +2,7 @@ package com.solvd.laba.members;
 
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.answer.quiz.IAnswerQuiz;
+import com.solvd.laba.enums.Regions;
 import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ public class Student extends Member implements IAnswerQuiz {
     private ArrayList<Subject> aprobbedSubjects;
     private ArrayList<Subject> historicEnrolledSubjects;
 
-    public Student(String name, int idNumber) {
-        super(name, idNumber);
+    public Student(String name, int idNumber, Regions region) {
+        super(name, idNumber, region);
         this.aprobbedSubjects = new ArrayList<Subject>();
         this.historicEnrolledSubjects = new ArrayList<Subject>();
     }
@@ -44,16 +45,16 @@ public class Student extends Member implements IAnswerQuiz {
         return answers;
     }
 
-    public void addApprobedSubject(Subject s){
-        for (Subject enrolled: this.historicEnrolledSubjects) {
-            if (enrolled.getName().equals(s.getName())){
+    public void addApprobedSubject(Subject s) {
+        for (Subject enrolled : this.historicEnrolledSubjects) {
+            if (enrolled.getName().equals(s.getName())) {
                 this.historicEnrolledSubjects.remove(enrolled);
             }
         }
         this.aprobbedSubjects.add(s);
     }
 
-    public void addHistoricEnrolledSubjects(Subject s){
+    public void addHistoricEnrolledSubjects(Subject s) {
         this.aprobbedSubjects.add(s);
     }
 

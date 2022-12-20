@@ -1,17 +1,23 @@
 package com.solvd.laba.members;
 
+import com.solvd.laba.enums.Regions;
+import com.solvd.laba.members.Student;
 import com.solvd.laba.exam.IExamStudents;
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.exam.IGiveResults;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Teacher extends Member implements IExamStudents, IGiveResults {
+    private static final Logger LOGGER = LogManager.getLogger();
     private int rating;
     private ArrayList<Subject> currentlyAsignedSubjects;
 
-    public Teacher(String name, int idNumber, int rating) {
-        super(name, idNumber);
+    public Teacher(String name, int idNumber, int rating, Regions region) {
+        super(name, idNumber, region);
         this.setRating(rating);
         this.currentlyAsignedSubjects = new ArrayList<Subject>();
     }
@@ -27,8 +33,8 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
         this.rating = rating;
     }
 
-    public void addSubject(Subject s){
-        if (s != null){
+    public void addSubject(Subject s) {
+        if (s != null) {
             this.currentlyAsignedSubjects.add(s);
         }
     }
@@ -55,10 +61,27 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
         }
         return results;
     }
+
     @Override
     public void giveBackupResults() {
         for (Subject subject : this.currentlyAsignedSubjects) {
             subject.displayBackupResults();
         }
     }
+
+    public void printSearchedStudents(Predicate<Student> predicate) {
+        ArrayList<Student> toPrint = new ArrayList<Student>();
+        for (Subject subject : this.currentlyAsignedSubjects) {
+            ArrayList<Student> subjectList = subject.searchStudents(predicate);
+            for (Student s : subjectList) {
+                if (!toPrint.contains(s)) {
+                    toPrint.add(s);
+                }
+            }
+        }
+        for (Student s : toPrint) {
+            LOGGER.info(s.getName());
+        }
+    }
+
 }

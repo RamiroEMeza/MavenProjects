@@ -7,7 +7,7 @@ public class VariableCost implements ICalculateCost {
     // 0 <= maxVariation <= 1
     private final double maxVariation;
     private final int maxCost;
-
+ 
     public VariableCost(double maxVariation, int maxCost) {
         this.maxVariation = setMaxVariation(maxVariation);
         this.maxCost = setMaxCost(maxCost);

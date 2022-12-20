@@ -35,7 +35,7 @@ public class University extends AdmnistrativeSection {
 
     @Override
     public String toString() {
-        return this.getName() + " has " + this.colleges + " hires "  + " teachers"
+        return this.getName() + " has " + this.colleges + " hires " + " teachers"
                 + " and cost " + this.getBaseCost();
     }
 
@@ -91,9 +91,6 @@ public class University extends AdmnistrativeSection {
             throw new InvalidIDException("No se encontro el id de la especialidad");
         }
     }
-
-
-
 
 
     @Override

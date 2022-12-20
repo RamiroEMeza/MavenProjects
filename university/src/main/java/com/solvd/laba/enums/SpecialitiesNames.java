@@ -1,0 +1,6 @@
+package com.solvd.laba.enums;
+
+public enum SpecialitiesNames {
+    ANTHROPOLOGY, APPLIED_PLANT_BIOLOGY, ASTROPHYSICS, ART_HISTORY, APPLIED_NUTRITION,
+    COMMUNICATION_SCIENCES_AND_DISORDERS;
+}

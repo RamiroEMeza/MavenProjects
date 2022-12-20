@@ -5,10 +5,12 @@ import com.solvd.laba.members.Student;
 import com.solvd.laba.exam.IExamStudents;
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.exam.IGiveResults;
+import com.solvd.laba.result.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.function.DoublePredicate;
 import java.util.function.Predicate;
 
 public class Teacher extends Member implements IExamStudents, IGiveResults {
@@ -81,6 +83,16 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
         }
         for (Student s : toPrint) {
             LOGGER.info(s.getName());
+        }
+    }
+
+    public void printSearchedResults(DoublePredicate doublePredicate) {
+        ArrayList<Result> toPrint = new ArrayList<>();
+        for (Subject subject : this.currentlyAsignedSubjects) {
+            toPrint.addAll(subject.searchResults(doublePredicate));
+        }
+        for (Result r : toPrint) {
+            LOGGER.info(r.getStudent() + " get: " + r.getResult());
         }
     }
 

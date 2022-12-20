@@ -95,7 +95,8 @@ public class Main {
                     LOGGER.info("\nIf you want to know the cost of any of ours specialities, " +
                             "please enter its " + "(id) number. " + "\nOr -1 to search students."
                             + "\nOr -2 to Exam Students."
-                            + "Any other character to exit");
+                            + "\nOr -3 to Search Results."
+                            + "\nAny other character to exit");
                     userRequest = Integer.parseInt(readRequest.readLine());
                 } catch (Exception e) {
                     LOGGER.info("User didn't ask about any speciality and enter an non integer data, " +
@@ -142,7 +143,7 @@ public class Main {
                     switch (userRequest) {
                         case 1:
                             for (Teacher teacher : teachers) {
-                                teacher.printSearchedStudents(((p) -> p.getRegion().equals(Regions.EUROPE)));
+                                teacher.printSearchedStudents((p) -> p.getRegion().equals(Regions.EUROPE));
                             }
                             break;
                         case 2:
@@ -163,6 +164,16 @@ public class Main {
                     //ohioU.orderExams();
                     //ohioU.requestResultsExam(0);
                     teachers.get(0).giveBackupResults();//Using custom linked list
+                } else if (userRequest == -3) {
+                    try {
+                        LOGGER.info("Please enter minimum grade");
+                        userRequest = Integer.parseInt(readRequest.readLine());
+                    } catch (Exception e) {
+                        LOGGER.info("User enter an non integer data, setting userRequest=0");
+                        userRequest = 0;
+                    }
+                    int finalUserRequest = userRequest;
+                    teachers.get(0).printSearchedResults((result) -> result >= finalUserRequest);
                 }
 
             } while (userRequest != 0);

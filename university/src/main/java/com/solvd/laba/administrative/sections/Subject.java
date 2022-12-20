@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Predicate;
+import java.util.function.DoublePredicate;
 
 public class Subject extends AdmnistrativeSection {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -128,6 +129,16 @@ public class Subject extends AdmnistrativeSection {
             }
         }
         return result;
+    }
+
+    public ArrayList<Result> searchResults(DoublePredicate doublePredicate) {
+        ArrayList<Result> response = new ArrayList<>();
+        for (Result r : this.results) {
+            if (doublePredicate.test(r.getResult())) {
+                response.add(r);
+            }
+        }
+        return response;
     }
 
     public void printStudents(Predicate<Student> predicate) {

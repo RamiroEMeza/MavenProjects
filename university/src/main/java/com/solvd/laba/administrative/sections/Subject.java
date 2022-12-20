@@ -93,7 +93,7 @@ public class Subject extends AdmnistrativeSection {
         return result * this.getBaseCost();
     }
 
-    public void Exam() {
+    public void exam() {
         for (Student s : this.students) {//ask each student
             for (Quiz q : this.quizes) {//gives the student each quiz
                 HashMap<String, String> answer = new HashMap<>();

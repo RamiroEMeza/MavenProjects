@@ -1,7 +1,6 @@
 package com.solvd.laba.members;
 
 import com.solvd.laba.enums.Regions;
-import com.solvd.laba.members.Student;
 import com.solvd.laba.exam.IExamStudents;
 import com.solvd.laba.administrative.sections.Subject;
 import com.solvd.laba.exam.IGiveResults;
@@ -50,7 +49,7 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
     @Override
     public void ExamStudents() {
         for (Subject subject : this.currentlyAsignedSubjects) {
-            subject.Exam();
+            subject.exam();
 
         }
     }

@@ -17,6 +17,8 @@ public class Speciality extends AdministrativeSection {
         this.id = id;
         this.requiredEntranceQuiz = true;
         this.subjects = new ArrayList<Subject>();
+        this.subDependencies = this.subjects;//doing this because I need two pointers, subDependencies is needed for
+        // getStudentsArrayList() in AdministrativeSection, colleges is needed for the streams in some methods of Speciality
     }
 
     public int calculateCost() {
@@ -77,22 +79,9 @@ public class Speciality extends AdministrativeSection {
         for (Subject subject : subjects) {
             aux = subject.getStudentsArrayList();
             aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
-            // result += subject.getQuantityOfStudents();
         }
         return noRepeatsList.size();
     }
-
-    @Override
-    public ArrayList<Student> getStudentsArrayList() {
-        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
-        ArrayList<Student> aux = new ArrayList<Student>();
-        for (Subject subject : this.subjects) {
-            aux = subject.getStudentsArrayList();
-            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
-        }
-        return noRepeatsList;
-    }
-
 
     public int getQuantitySubjects() {
         return this.subjects.size();
@@ -123,6 +112,4 @@ public class Speciality extends AdministrativeSection {
             }
         }
     }
-
-
 }

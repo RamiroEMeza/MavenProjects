@@ -47,7 +47,7 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
     }
 
     @Override
-    public void ExamStudents() {
+    public void examStudents() {
         for (Subject subject : this.currentlyAsignedSubjects) {
             subject.exam();
 
@@ -94,5 +94,4 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
             LOGGER.info(r.getStudent() + " get: " + r.getResult());
         }
     }
-
 }

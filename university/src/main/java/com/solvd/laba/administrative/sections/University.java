@@ -4,7 +4,6 @@ import com.solvd.laba.cost.ICalculateCost;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
-import com.solvd.laba.members.Student;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,6 +17,8 @@ public class University extends AdministrativeSection {
     public University(String name, ICalculateCost cost) {
         super(name, cost);
         this.colleges = new ArrayList<>();
+        this.subDependencies = this.colleges;//doing this because I need two pointers, subDependencies is needed for
+        // getStudentsArrayList() in AdministrativeSection, colleges is needed for the streams in some methods of university
     }
 
     @Override
@@ -31,7 +32,6 @@ public class University extends AdministrativeSection {
 
     @Override
     public int hashCode() {
-        //System.out.println("hashCode= "+ Objects.hash(getName(), getCost()));
         return Objects.hash(getName(), getBaseCost());
     }
 
@@ -45,12 +45,6 @@ public class University extends AdministrativeSection {
         AtomicInteger result = new AtomicInteger();
         this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId))
                 .forEach(college -> result.set(college.calculateCost(specialityId)));
-
-//        for (College college : this.colleges) {
-//            if (college.haveSpecialityById(specialityId)) {
-//                result = college.calculateCost(specialityId);
-//            }
-//        }
         return result.get() + this.getBaseCost();
     }
 
@@ -94,13 +88,6 @@ public class University extends AdministrativeSection {
             added.set(true);
         });
 
-//        for (College college : this.colleges) {
-//            if (college.haveSpecialityById(specialityId)) {
-//                college.addSubjectToSpeciality(specialityId, subject);
-//                added.set(true);
-//            }
-//        }
-
         if (!added.get()) {
             throw new InvalidIDException("Id of speciality not found");
         }
@@ -111,18 +98,6 @@ public class University extends AdministrativeSection {
     public int getQuantityOfStudents() {
         return this.getStudentsArrayList().size();
     }
-
-    @Override
-    public ArrayList<Student> getStudentsArrayList() {
-        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
-        ArrayList<Student> aux = new ArrayList<Student>();
-        for (College college : this.colleges) {
-            aux = college.getStudentsArrayList();
-            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
-        }
-        return noRepeatsList;
-    }
-
 
     public ArrayList<String> getColleges() throws NoCollegesException {
         if (colleges.size() < 1) {
@@ -144,7 +119,6 @@ public class University extends AdministrativeSection {
         if (response.isEmpty()) {
             throw new NoSpecialtiesFoundException(this.getName() + " has no specialities");
         }
-
         return response;
     }
 
@@ -164,7 +138,6 @@ public class University extends AdministrativeSection {
         } catch (NoSpecialtiesFoundException e) {
             throw e;
         }
-
         return response;
     }
 
@@ -185,37 +158,4 @@ public class University extends AdministrativeSection {
             }
         }
     }
-
-//    public void orderExams() {
-//        for (Teacher t : this.teachers) {
-//            t.ExamStudents();
-//        }
-//    }
-//
-//    public void requestResultsExam(int i) {
-//        this.teachers.get(i).giveBackupResults();
-//    }
-
-//    public int getTeachersQuantity() {
-//        return this.teachers.size();
-//    }
-
-    //    public Teacher getTeacher(int index) throws NoTeacherException {
-//        if (index >= 1 && index <= this.teachers.size()) {
-//            return this.teachers.get(index - 1);
-//        } else {
-//            throw new NoTeacherException("No teacher founded");
-//        }
-//    }
-//    public ArrayList<String> getTeachers() throws NoTeacherException {
-//        ArrayList<String> response = new ArrayList<>();
-//        for (Teacher c : this.teachers) {
-//            response.add(c.getName());
-//        }
-//
-//        if (response.size() < 1) {
-//            throw new NoTeacherException("No teachers founded");
-//        }
-//        return response;
-//    }
 }

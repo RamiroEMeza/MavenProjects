@@ -155,6 +155,4 @@ public class Subject extends AdministrativeSection {
             LOGGER.info(s.getName());
         }
     }
-
-
 }

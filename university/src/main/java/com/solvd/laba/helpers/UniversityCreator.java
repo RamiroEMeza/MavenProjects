@@ -30,11 +30,11 @@ public final class UniversityCreator {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    public University create(String name, ArrayList<Teacher> teachers, Student student)
+    public University create(String name, ArrayList<Teacher> teachers, ArrayList<Student> students)
             throws NoCollegesException, NoSpecialtiesFoundException, InvalidIDException {
         //Create a university
         University university = new University(name, new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)));
-        
+
         Arrays.stream(CollegesNames.values()).forEach(cn -> university.addCollege(new College(("College of " + cn), new FixedCost(
                 UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal()))));
 
@@ -57,8 +57,10 @@ public final class UniversityCreator {
                         new Quiz(4, 6, 0.4),
                         new FixedCost(UniversityCreator.getRandomInt(MIN_SMALL_COST, MAX_SMALL_COST)));
 
-                s.addStudent(student);
-                student.addHistoricEnrolledSubjects(s);
+                students.forEach(student -> {
+                    s.addStudent(student);
+                    student.addHistoricEnrolledSubjects(s);
+                });
 
                 university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
                         s);

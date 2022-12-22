@@ -39,16 +39,22 @@ public class Main {
         }
     }
 
+    private static void createStudents(ArrayList<Student> students, int quantityOfStudents) {
+        for (int i = 1; i < (quantityOfStudents + 1); i++) {
+            students.add(new Student("Student " + i, i, Regions.EUROPE));
+        }
+    }
+
     public static void main(String[] args) throws NoSpecialtiesFoundException {
         final String UNIVERSITY_NAME = "Ohio U";
         final int QUANTITY_OF_TEACHERS = 5;
+        final int QUANTITY_OF_STUDENTS = 2;
         ArrayList<Teacher> teachers = new ArrayList<>();
         Main.createTeachers(teachers, QUANTITY_OF_TEACHERS);
         UniversityCreator universityCreator = new UniversityCreator();
         ArrayList<String> response = null;
-
-        Student student = new Student("Lionel Messi", 1, Regions.EUROPE);
-        //student.isScolarshipped();
+        ArrayList<Student> students = new ArrayList<>();
+        Main.createStudents(students, QUANTITY_OF_STUDENTS);
 
         int userRequest;
         BufferedReader readRequest = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +64,7 @@ public class Main {
             //Create a university
             University ohioU = null;
             try {
-                ohioU = universityCreator.create(UNIVERSITY_NAME, teachers, student);
+                ohioU = universityCreator.create(UNIVERSITY_NAME, teachers, students);
             } catch (NoCollegesException | InvalidIDException nCE) {
                 LOGGER.error(nCE.getMessage());
             }
@@ -69,9 +75,9 @@ public class Main {
                 LOGGER.error(nCE.getMessage());
             }
 
-
             //Print colleges
             try {
+                LOGGER.info("In Ohio U we have " + ohioU.getQuantityOfStudents() + " students");
                 LOGGER.info(ohioU.getName() + " have these colleges:");
                 response = ohioU.getColleges();
                 LOGGER.info(response.toString());
@@ -97,7 +103,6 @@ public class Main {
                             + "\nOr -2 to Exam Students."
                             + "\nOr -3 to Search Results."
                             + "\nAny other character to exit");
-                    LOGGER.info("We have " + ohioU.getQuantityOfStudents() + " students");
                     userRequest = Integer.parseInt(readRequest.readLine());
                 } catch (Exception e) {
                     LOGGER.info("User didn't ask about any speciality and enter an non integer data, " +
@@ -159,7 +164,7 @@ public class Main {
                     }
                 } else if (userRequest == -2) {
                     LOGGER.info("EXAM STUDENTS");
-                    teachers.get(0).ExamStudents();
+                    teachers.get(0).examStudents();
                     //response = teachers.get(0).giveResults();
                     //LOGGER.info(response.toString());
                     //ohioU.orderExams();
@@ -183,4 +188,6 @@ public class Main {
 
         LOGGER.info("END MAIN");
     }
+
+
 }

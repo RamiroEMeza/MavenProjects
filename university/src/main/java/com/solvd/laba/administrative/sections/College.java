@@ -1,7 +1,6 @@
 package com.solvd.laba.administrative.sections;
 
 import com.solvd.laba.cost.ICalculateCost;
-import com.solvd.laba.members.Student;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -14,6 +13,8 @@ public class College extends AdministrativeSection {
         super(name, cost);
         this.id = id;
         this.specialities = new ArrayList<Speciality>();
+        this.subDependencies = this.specialities;//doing this because I need two pointers, subDependencies is needed for
+        // getStudentsArrayList() in AdministrativeSection, colleges is needed for the streams in some methods of College
     }
 
     public boolean haveSpecialityById(int specialityId) {
@@ -120,18 +121,6 @@ public class College extends AdministrativeSection {
         return result;
     }
 
-    @Override
-    public ArrayList<Student> getStudentsArrayList() {
-        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
-        ArrayList<Student> aux = new ArrayList<Student>();
-        for (Speciality speciality : this.specialities) {
-            aux = speciality.getStudentsArrayList();
-            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
-        }
-        return noRepeatsList;
-    }
-
-
     public ArrayList<String> getSpecialityDetails(int specialityId) {
         ArrayList<String> response = new ArrayList<>();
         for (Speciality speciality : this.specialities) {
@@ -141,6 +130,4 @@ public class College extends AdministrativeSection {
         }
         return response;
     }
-
-
 }

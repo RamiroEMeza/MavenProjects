@@ -9,6 +9,8 @@ public abstract class AdministrativeSection {
     private String name;
     private ICalculateCost cost;
 
+    protected ArrayList<? extends AdministrativeSection> subDependencies;
+
     public AdministrativeSection(String name, ICalculateCost cost) {
         this.name = name;
         this.cost = cost;
@@ -16,7 +18,15 @@ public abstract class AdministrativeSection {
 
     public abstract int getQuantityOfStudents();
 
-    public abstract ArrayList<Student> getStudentsArrayList();
+    public ArrayList<Student> getStudentsArrayList() {
+        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
+        ArrayList<Student> aux = new ArrayList<Student>();
+        for (AdministrativeSection admSect : this.subDependencies) {
+            aux = admSect.getStudentsArrayList();
+            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
+        }
+        return noRepeatsList;
+    }
 
     public final String getName() {
         return name;

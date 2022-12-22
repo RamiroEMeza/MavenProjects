@@ -18,21 +18,13 @@ public abstract class Count {
 
         for (String word : StringUtils.lowerCase(FileUtils.readFileToString(new File(readable),
                 defaultCharset())).split("\\W+")) {
-            if (notUnique.contains(word)) {
-                isUnique = false;//is in the banned list
-            } else {
-                isUnique = true;//is not in the banned list
-            }
+            isUnique = !notUnique.contains(word);//is in the banned list?
 
             if (isUnique) {
-                try {
-                    for (String key : count.keySet()) {
-                        if (key.equals(word)) {
-                            notUnique.add(word);//was already in the map, so it goes to the banned list
-                        }
+                for (String key : count.keySet()) {
+                    if (key.equals(word)) {
+                        notUnique.add(word);//was already in the map, so it goes to the banned list
                     }
-                } catch (Exception e) {
-                    //System.out.println(e.getMessage() + " / " + e.getCause() + " / " + e.toString());
                 }
 
                 if (!notUnique.contains(word)) {

@@ -1,14 +1,15 @@
 package com.solvd.laba.administrative.sections;
 
-import com.solvd.laba.members.Teacher;
 import com.solvd.laba.cost.ICalculateCost;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
-import com.solvd.laba.exeptions.NoTeacherException;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class University extends AdmnistrativeSection {
     private ArrayList<College> colleges;
@@ -40,13 +41,16 @@ public class University extends AdmnistrativeSection {
     }
 
     public int calculateCost(int specialityId) {
-        int result = 0;
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                result = college.calculateCost(specialityId);
-            }
-        }
-        return result + this.getBaseCost();
+        AtomicInteger result = new AtomicInteger();
+        this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId))
+                .forEach(college -> result.set(college.calculateCost(specialityId)));
+
+//        for (College college : this.colleges) {
+//            if (college.haveSpecialityById(specialityId)) {
+//                result = college.calculateCost(specialityId);
+//            }
+//        }
+        return result.get() + this.getBaseCost();
     }
 
     public void addCollege(College college) {
@@ -79,16 +83,25 @@ public class University extends AdmnistrativeSection {
     }
 
     public void addSubjectToSpeciality(int specialityId, Subject subject) throws InvalidIDException {
-        boolean added = false;
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                college.addSubjectToSpeciality(specialityId, subject);
-                added = true;
-            }
-        }
+        AtomicBoolean added = new AtomicBoolean(false);
 
-        if (!added) {
-            throw new InvalidIDException("No se encontro el id de la especialidad");
+        Optional<College> objective = this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId)).
+                findFirst();
+
+        objective.ifPresent(college -> {
+            college.addSubjectToSpeciality(specialityId, subject);
+            added.set(true);
+        });
+
+//        for (College college : this.colleges) {
+//            if (college.haveSpecialityById(specialityId)) {
+//                college.addSubjectToSpeciality(specialityId, subject);
+//                added.set(true);
+//            }
+//        }
+
+        if (!added.get()) {
+            throw new InvalidIDException("Id of speciality not found");
         }
     }
 

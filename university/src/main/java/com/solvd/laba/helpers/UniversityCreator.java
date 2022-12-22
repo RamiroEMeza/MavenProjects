@@ -17,6 +17,7 @@ import com.solvd.laba.administrative.sections.University;
 import com.solvd.laba.quizes.Quiz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class UniversityCreator {
@@ -33,17 +34,14 @@ public final class UniversityCreator {
             throws NoCollegesException, NoSpecialtiesFoundException, InvalidIDException {
         //Create a university
         University university = new University(name, new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)));
-
-        //add colleges to the university
-        for (CollegesNames cn : CollegesNames.values()) {
-            university.addCollege(new College(("College of " + cn), new FixedCost(
-                    UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal())));
-        }
+        
+        Arrays.stream(CollegesNames.values()).forEach(cn -> university.addCollege(new College(("College of " + cn), new FixedCost(
+                UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal()))));
 
         //add specialities to the colleges
         for (SpecialitiesNames sn : SpecialitiesNames.values()) {
             try {
-                university.addSpeciality(UniversityCreator.getRandomInt(1, (university.getColleges().size() - 1)),
+                university.addSpeciality(UniversityCreator.getRandomInt(0, (university.getColleges().size() - 1)),
                         new Speciality(sn.toString(), sn.ordinal() + 1,
                                 new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST))));
             } catch (NoCollegesException nCE) {

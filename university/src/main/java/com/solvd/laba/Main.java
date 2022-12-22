@@ -97,6 +97,7 @@ public class Main {
                             + "\nOr -2 to Exam Students."
                             + "\nOr -3 to Search Results."
                             + "\nAny other character to exit");
+                    LOGGER.info("We have " + ohioU.getQuantityOfStudents() + " students");
                     userRequest = Integer.parseInt(readRequest.readLine());
                 } catch (Exception e) {
                     LOGGER.info("User didn't ask about any speciality and enter an non integer data, " +

@@ -1,11 +1,12 @@
 package com.solvd.laba.administrative.sections;
 
 import com.solvd.laba.cost.ICalculateCost;
+import com.solvd.laba.members.Student;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Speciality extends AdmnistrativeSection {
+public class Speciality extends AdministrativeSection {
     private ArrayList<Subject> subjects;
     private int id;
 
@@ -71,11 +72,27 @@ public class Speciality extends AdmnistrativeSection {
     @Override
     public int getQuantityOfStudents() {
         int result = 0;
+        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
+        ArrayList<Student> aux = new ArrayList<Student>();
         for (Subject subject : subjects) {
-            result += subject.getQuantityOfStudents();
+            aux = subject.getStudentsArrayList();
+            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
+            // result += subject.getQuantityOfStudents();
         }
-        return result;
+        return noRepeatsList.size();
     }
+
+    @Override
+    public ArrayList<Student> getStudentsArrayList() {
+        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
+        ArrayList<Student> aux = new ArrayList<Student>();
+        for (Subject subject : this.subjects) {
+            aux = subject.getStudentsArrayList();
+            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
+        }
+        return noRepeatsList;
+    }
+
 
     public int getQuantitySubjects() {
         return this.subjects.size();

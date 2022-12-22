@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.function.DoublePredicate;
 
-public class Subject extends AdmnistrativeSection {
+public class Subject extends AdministrativeSection {
     private static final Logger LOGGER = LogManager.getLogger();
     private int hours;
     private ArrayList<Teacher> teachers;
@@ -59,7 +59,9 @@ public class Subject extends AdmnistrativeSection {
     }
 
     public void addStudent(Student student) {
-        this.students.add(student);
+        if (!this.students.contains(student)) {
+            this.students.add(student);
+        }
     }
 
     public void removeStudent(int index) {
@@ -69,6 +71,11 @@ public class Subject extends AdmnistrativeSection {
     @Override
     public int getQuantityOfStudents() {
         return this.students.size();
+    }
+
+    @Override
+    public ArrayList<Student> getStudentsArrayList() {
+        return new ArrayList<Student>(this.students);
     }
 
     public ArrayList<Quiz> getQuizes() {

@@ -4,6 +4,7 @@ import com.solvd.laba.cost.ICalculateCost;
 import com.solvd.laba.exeptions.InvalidIDException;
 import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
+import com.solvd.laba.members.Student;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class University extends AdmnistrativeSection {
+public class University extends AdministrativeSection {
     private ArrayList<College> colleges;
 
     public University(String name, ICalculateCost cost) {
@@ -108,12 +109,20 @@ public class University extends AdmnistrativeSection {
 
     @Override
     public int getQuantityOfStudents() {
-        int result = 0;
-        for (College college : this.colleges) {
-            result += college.getQuantityOfStudents();
-        }
-        return result;
+        return this.getStudentsArrayList().size();
     }
+
+    @Override
+    public ArrayList<Student> getStudentsArrayList() {
+        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
+        ArrayList<Student> aux = new ArrayList<Student>();
+        for (College college : this.colleges) {
+            aux = college.getStudentsArrayList();
+            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
+        }
+        return noRepeatsList;
+    }
+
 
     public ArrayList<String> getColleges() throws NoCollegesException {
         if (colleges.size() < 1) {
@@ -132,7 +141,7 @@ public class University extends AdmnistrativeSection {
             response.addAll(c.getSpecialities());
         }
 
-        if (response.isEmpty() || response.size() < 1) {
+        if (response.isEmpty()) {
             throw new NoSpecialtiesFoundException(this.getName() + " has no specialities");
         }
 
@@ -149,7 +158,7 @@ public class University extends AdmnistrativeSection {
     }
 
     public int getLastSpecialityId() throws NoSpecialtiesFoundException {
-        int response = 0;
+        int response;
         try {
             response = this.getSpecialities().size();
         } catch (NoSpecialtiesFoundException e) {

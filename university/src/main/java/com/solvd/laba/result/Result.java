@@ -8,10 +8,10 @@ public class Result {
     private int result;
 
     public Result() {
-        this.student = null;
-        this.subject = null;
+        this.student = "defaultStudent";
+        this.subject = "defaultSubject";
         this.approved = false;
-        this.result = 0;
+        this.result = 1;
     }
 
     public Result(String student, String subject, boolean approved, int result) {

@@ -6,6 +6,7 @@ import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,6 +20,13 @@ public class University extends AdministrativeSection {
         this.colleges = new ArrayList<>();
         this.subDependencies = this.colleges;//doing this because I need two pointers, subDependencies is needed for
         // getStudentsArrayList() in AdministrativeSection, colleges is needed for the streams in some methods of university
+    }
+
+    @Override
+    public ArrayList<? extends AdministrativeSection> getSubSections() {
+        ArrayList<College> response = new ArrayList<College>();
+        response.addAll(this.colleges);
+        return response;
     }
 
     @Override

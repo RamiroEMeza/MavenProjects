@@ -80,6 +80,11 @@ public class Subject extends AdministrativeSection {
         return new ArrayList<Student>(this.students);
     }
 
+    @Override
+    public ArrayList<? extends AdministrativeSection> getSubSections() {
+        return new ArrayList<Subject>();
+    }
+
     public ArrayList<Quiz> getQuizes() {
         return new ArrayList<Quiz>(this.quizes);
     }

@@ -79,6 +79,13 @@ public class Speciality extends AdministrativeSection {
         this.requiredEntranceQuiz = requiredEntranceQuiz;
     }
 
+    @Override
+    public ArrayList<? extends AdministrativeSection> getSubSections() {
+        ArrayList<Subject> response = new ArrayList<Subject>();
+        response.addAll(this.subjects);
+        return response;
+    }
+
     public ArrayList<String> getDetail() {
         ArrayList<String> response = new ArrayList<>();
         for (Subject subject : subjects) {

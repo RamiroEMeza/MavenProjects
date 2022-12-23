@@ -35,8 +35,9 @@ public final class UniversityCreator {
         //Create a university
         University university = new University(name, new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)));
 
-        Arrays.stream(CollegesNames.values()).forEach(cn -> university.addCollege(new College(("College of " + cn), new FixedCost(
-                UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal()))));
+        Arrays.stream(CollegesNames.values())
+                .forEach(cn -> university.addCollege(new College(("College of " + cn), new FixedCost(
+                        UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST)), (cn.ordinal()))));
 
         //add specialities to the colleges
         for (SpecialitiesNames sn : SpecialitiesNames.values()) {

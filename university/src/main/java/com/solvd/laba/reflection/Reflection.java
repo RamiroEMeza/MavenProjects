@@ -19,7 +19,7 @@ public class Reflection {
         }
     }
 
-    public static <T> void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         final String PATH = "com.solvd.laba.result.Result";
         try {
             Class<?> reflectedClass = Class.forName(PATH);
@@ -46,6 +46,7 @@ public class Reflection {
             //LOGGER.info(reflectedResult.toString());
 
         } catch (ClassNotFoundException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         }
 

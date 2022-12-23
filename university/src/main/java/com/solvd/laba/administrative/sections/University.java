@@ -99,12 +99,6 @@ public class University extends AdministrativeSection {
         }
     }
 
-
-    @Override
-    public int getQuantityOfStudents() {
-        return this.getStudentsArrayList().size();
-    }
-
     public ArrayList<String> getColleges() throws NoCollegesException {
         if (colleges.size() < 1) {
             throw new NoCollegesException("No Colleges in " + this.getName());

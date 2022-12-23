@@ -37,7 +37,6 @@ public class Subject extends AdministrativeSection {
         this.addQuiz(quiz);
         this.students = new ArrayList<>();
         this.results = new ArrayList<>();
-        this.backupResults = new CustomLinkedList<>();
         teacher.addSubject(this);
     }
 

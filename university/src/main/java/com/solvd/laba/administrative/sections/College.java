@@ -112,15 +112,6 @@ public class College extends AdministrativeSection {
         return null;
     }
 
-    @Override
-    public int getQuantityOfStudents() {
-        int result = 0;
-        for (Speciality speciality : this.specialities) {
-            result += speciality.getQuantityOfStudents();
-        }
-        return result;
-    }
-
     public ArrayList<String> getSpecialityDetails(int specialityId) {
         ArrayList<String> response = new ArrayList<>();
         for (Speciality speciality : this.specialities) {

@@ -71,18 +71,6 @@ public class Speciality extends AdministrativeSection {
         return id;
     }
 
-    @Override
-    public int getQuantityOfStudents() {
-        int result = 0;
-        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
-        ArrayList<Student> aux = new ArrayList<Student>();
-        for (Subject subject : subjects) {
-            aux = subject.getStudentsArrayList();
-            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
-        }
-        return noRepeatsList.size();
-    }
-
     public int getQuantitySubjects() {
         return this.subjects.size();
     }

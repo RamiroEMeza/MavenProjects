@@ -16,8 +16,11 @@ public abstract class AdministrativeSection {
         this.cost = cost;
     }
 
-    public abstract int getQuantityOfStudents();
+    public int getQuantityOfStudents() {
+        return this.getStudentsArrayList().size();
+    }
 
+    //ArrayList<? extends AdministrativeSection> rawStudents
     public ArrayList<Student> getStudentsArrayList() {
         ArrayList<Student> noRepeatsList = new ArrayList<Student>();
         ArrayList<Student> aux = new ArrayList<Student>();

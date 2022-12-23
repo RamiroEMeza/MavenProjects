@@ -42,10 +42,16 @@ public class University extends AdministrativeSection {
     }
 
     public int calculateCost(int specialityId) {
-        AtomicInteger result = new AtomicInteger();
-        this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId))
-                .forEach(college -> result.set(college.calculateCost(specialityId)));
-        return result.get() + this.getBaseCost();
+        int result = 0;
+        College c;
+        Optional<College> collegeAux = this.colleges.stream()
+                .filter(college -> college.haveSpecialityById(specialityId))
+                .findFirst();
+        if (collegeAux.isPresent()) {
+            c = collegeAux.get();
+            result = c.calculateCost(specialityId);
+        }
+        return result + this.getBaseCost();
     }
 
     public void addCollege(College college) {

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.function.DoublePredicate;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 public class Teacher extends Member implements IExamStudents, IGiveResults {
@@ -81,17 +82,20 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
             }
         }
         for (Student s : toPrint) {
-            LOGGER.info(s.getName());
+            LOGGER.info(this.getName() + ": I give lectures to this student - " + s.getName());
         }
     }
 
-    public void printSearchedResults(DoublePredicate doublePredicate) {
+    public void printSearchedResults(IntPredicate intPredicate) {
         ArrayList<Result> toPrint = new ArrayList<>();
         for (Subject subject : this.currentlyAsignedSubjects) {
-            toPrint.addAll(subject.searchResults(doublePredicate));
+            toPrint.addAll(subject.searchResults(intPredicate));
         }
-        for (Result r : toPrint) {
-            LOGGER.info(r.getStudent() + " get: " + r.getResult());
+        if (toPrint.size() > 0) {
+            toPrint.forEach(r -> LOGGER.info(r.getStudent() + " get: " + r.getResult() + " in " + r.getSubject()));
+        } else {
+            LOGGER.warn("We didn't exam the students yet");
         }
+
     }
 }

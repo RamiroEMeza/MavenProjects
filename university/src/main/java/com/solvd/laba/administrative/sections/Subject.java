@@ -12,8 +12,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.function.DoublePredicate;
+import java.util.stream.Collectors;
 
 public class Subject extends AdministrativeSection {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -125,20 +127,14 @@ public class Subject extends AdministrativeSection {
     }
 
     public ArrayList<Student> searchStudents(Predicate<Student> predicate) {
-        ArrayList<Student> result = new ArrayList<Student>();
-        this.students.stream().filter(predicate).forEach(result::add);
-        return result;
+        return this.students.stream()
+                .filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Result> searchResults(DoublePredicate doublePredicate) {
-        ArrayList<Result> response = new ArrayList<>();
-        this.results.stream().filter(result -> doublePredicate.test(result.getResult())).forEach(response::add);
-//        for (Result r : this.results) {
-//            if (doublePredicate.test(r.getResult())) {
-//                response.add(r);
-//            }
-//        }
-        return response;
+    public ArrayList<Result> searchResults(IntPredicate intPredicate) {
+        return this.results.stream()
+                .filter(result -> intPredicate.test(result.getResult()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void printStudents(Predicate<Student> predicate) {

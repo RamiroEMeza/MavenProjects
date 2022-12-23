@@ -178,8 +178,8 @@ public class Main {
                         LOGGER.info("User enter an non integer data, setting userRequest=0");
                         userRequest = 0;
                     }
-                    int finalUserRequest = userRequest;
-                    teachers.get(0).printSearchedResults((result) -> result >= finalUserRequest);
+                    int minimumGrade = userRequest;
+                    teachers.get(0).printSearchedResults((result) -> result >= minimumGrade);
                 }
 
             } while (userRequest != 0);

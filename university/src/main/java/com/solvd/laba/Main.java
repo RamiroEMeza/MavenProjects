@@ -163,7 +163,7 @@ public class Main {
                             break;
                     }
                 } else if (userRequest == -2) {
-                    LOGGER.info("EXAM STUDENTS");
+                    LOGGER.info("Teacher 0: EXAM STUDENTS");
                     teachers.get(0).examStudents();
                     //response = teachers.get(0).giveResults();
                     //LOGGER.info(response.toString());
@@ -172,7 +172,7 @@ public class Main {
                     teachers.get(0).giveBackupResults();//Using custom linked list
                 } else if (userRequest == -3) {
                     try {
-                        LOGGER.info("Please enter minimum grade");
+                        LOGGER.info("Teacher 0 says: Please enter minimum grade");
                         userRequest = Integer.parseInt(readRequest.readLine());
                     } catch (Exception e) {
                         LOGGER.info("User enter an non integer data, setting userRequest=0");

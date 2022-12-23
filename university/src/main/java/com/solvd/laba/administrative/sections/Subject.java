@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.function.DoublePredicate;
 
@@ -92,12 +93,9 @@ public class Subject extends AdministrativeSection {
 
 
     public int getExtraCharge() {
-        int result = 0;
-        for (Teacher t :
-                teachers) {
-            result += t.getRating();
-        }
-        return result * this.getBaseCost();
+        AtomicInteger result = new AtomicInteger();
+        teachers.stream().forEach(t -> result.addAndGet(t.getRating()));
+        return result.get() * this.getBaseCost();
     }
 
     public void exam() {
@@ -118,9 +116,7 @@ public class Subject extends AdministrativeSection {
 
     public ArrayList<String> getResults() {
         ArrayList<String> results = new ArrayList<String>();
-        for (Result r : this.results) {
-            results.add(r.toString());
-        }
+        this.results.forEach(res -> results.add(res.toString()));
         return results;
     }
 
@@ -130,21 +126,18 @@ public class Subject extends AdministrativeSection {
 
     public ArrayList<Student> searchStudents(Predicate<Student> predicate) {
         ArrayList<Student> result = new ArrayList<Student>();
-        for (Student s : this.students) {
-            if (predicate.test(s)) {
-                result.add(s);
-            }
-        }
+        this.students.stream().filter(predicate).forEach(result::add);
         return result;
     }
 
     public ArrayList<Result> searchResults(DoublePredicate doublePredicate) {
         ArrayList<Result> response = new ArrayList<>();
-        for (Result r : this.results) {
-            if (doublePredicate.test(r.getResult())) {
-                response.add(r);
-            }
-        }
+        this.results.stream().filter(result -> doublePredicate.test(result.getResult())).forEach(response::add);
+//        for (Result r : this.results) {
+//            if (doublePredicate.test(r.getResult())) {
+//                response.add(r);
+//            }
+//        }
         return response;
     }
 

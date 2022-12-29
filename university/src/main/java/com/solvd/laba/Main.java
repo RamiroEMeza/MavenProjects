@@ -77,10 +77,10 @@ public class Main {
 
             //Print colleges
             try {
-                LOGGER.info("In Ohio U we have " + ohioU.getQuantityOfStudents() + " students");
-                LOGGER.info(ohioU.getName() + " have these colleges:");
-                response = ohioU.getColleges();
-                LOGGER.info(response.toString());
+                LOGGER.info("In Ohio U we have " + (ohioU != null ? ohioU.getStudentsArrayList().size() : 0) + " students");
+                LOGGER.info((ohioU != null ? ohioU.getName() : null) + " have these colleges:");
+                response = ohioU != null ? ohioU.getColleges() : null;
+                LOGGER.info(response != null ? response.toString() : null);
             } catch (NoCollegesException nCE) {
                 LOGGER.error(nCE.getMessage());
             }
@@ -92,8 +92,8 @@ public class Main {
                 for (String word : response) {
                     LOGGER.info("-" + word + "\n");
                 }
-            } catch (NoSpecialtiesFoundException nSFException) {
-                LOGGER.error(nSFException.getMessage());
+            } catch (NoSpecialtiesFoundException | NullPointerException e) {
+                LOGGER.error(e.getClass() + e.getMessage());
             }
 
             do {

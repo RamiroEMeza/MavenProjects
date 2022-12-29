@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
-import java.util.function.DoublePredicate;
 import java.util.stream.Collectors;
 
 public class Subject extends AdministrativeSection {
@@ -71,13 +70,8 @@ public class Subject extends AdministrativeSection {
     }
 
     @Override
-    public int getQuantityOfStudents() {
-        return this.students.size();
-    }
-
-    @Override
     public ArrayList<Student> getStudentsArrayList() {
-        return new ArrayList<Student>(this.students);
+        return new ArrayList<>(this.students);
     }
 
     @Override
@@ -86,7 +80,7 @@ public class Subject extends AdministrativeSection {
     }
 
     public ArrayList<Quiz> getQuizes() {
-        return new ArrayList<Quiz>(this.quizes);
+        return new ArrayList<>(this.quizes);
     }
 
     public int getHours() {
@@ -94,7 +88,15 @@ public class Subject extends AdministrativeSection {
     }
 
     public void setHours(int hours) {
-        this.hours = hours;
+        try {
+            if (hours > 0) {
+                this.hours = hours;
+            } else {
+                throw new IllegalArgumentException("Hours of a subject can't be negative");
+            }
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e);
+        }
     }
 
 

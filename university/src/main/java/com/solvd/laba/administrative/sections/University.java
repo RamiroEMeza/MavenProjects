@@ -24,9 +24,7 @@ public class University extends AdministrativeSection {
 
     @Override
     public ArrayList<? extends AdministrativeSection> getSubSections() {
-        ArrayList<College> response = new ArrayList<College>();
-        response.addAll(this.colleges);
-        return response;
+        return new ArrayList<College>(this.colleges);
     }
 
     @Override

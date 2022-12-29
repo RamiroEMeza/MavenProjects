@@ -81,9 +81,7 @@ public class Speciality extends AdministrativeSection {
 
     @Override
     public ArrayList<? extends AdministrativeSection> getSubSections() {
-        ArrayList<Subject> response = new ArrayList<Subject>();
-        response.addAll(this.subjects);
-        return response;
+        return new ArrayList<Subject>(this.subjects);
     }
 
     public ArrayList<String> getDetail() {

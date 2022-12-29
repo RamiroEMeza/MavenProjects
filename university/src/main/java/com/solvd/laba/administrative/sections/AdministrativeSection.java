@@ -4,6 +4,8 @@ import com.solvd.laba.cost.ICalculateCost;
 import com.solvd.laba.members.Student;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class AdministrativeSection {
     private String name;
@@ -16,19 +18,12 @@ public abstract class AdministrativeSection {
         this.cost = cost;
     }
 
-    public int getQuantityOfStudents() {
-        return this.getStudentsArrayList().size();
-    }
-
-    //ArrayList<? extends AdministrativeSection> rawStudents
     public ArrayList<Student> getStudentsArrayList() {
-        ArrayList<Student> noRepeatsList = new ArrayList<Student>();
-        ArrayList<Student> aux = new ArrayList<Student>();
+        Set<Student> set = new HashSet<Student>();
         for (AdministrativeSection admSect : getSubSections()) {
-            aux = admSect.getStudentsArrayList();
-            aux.stream().filter(student -> !noRepeatsList.contains(student)).forEach(noRepeatsList::add);
+            set.addAll(admSect.getStudentsArrayList());
         }
-        return noRepeatsList;
+        return new ArrayList<Student>(set);
     }
 
     public abstract ArrayList<? extends AdministrativeSection> getSubSections();

@@ -9,6 +9,12 @@ public class CustomNode<T> {
         this.data = data;
     }
 
+    public CustomNode(T data, CustomNode<T> next, CustomNode<T> previous) {
+        this.data = data;
+        this.next = next;
+        this.previous = previous;
+    }
+
     public CustomNode<T> getNext() {
         return next;
     }
@@ -19,12 +25,6 @@ public class CustomNode<T> {
 
     public T getData() {
         return data;
-    }
-
-    public CustomNode(T data, CustomNode<T> next, CustomNode<T> previous) {
-        this.data = data;
-        this.next = next;
-        this.previous = previous;
     }
 
     public void setNext(CustomNode<T> next) {

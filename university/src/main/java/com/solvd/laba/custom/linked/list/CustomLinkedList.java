@@ -23,6 +23,34 @@ public class CustomLinkedList<T> {
         this.size++;
     }
 
+    public void remove(int position) {
+        if (position == 0) {
+            this.head = this.head.getNext();
+            this.head.setPrevious(null);
+        } else if (position > 0) {
+            CustomNode<T> node = head;
+            for (int i = 0; i < position; i++) {
+                node = node.getNext();
+            }
+            if (node != null) {
+                node.getPrevious().setNext(node.getNext());
+                node.getNext().setPrevious(node.getPrevious());
+            }
+        }
+    }
+
+    public CustomNode<T> getNode(int position) {
+        CustomNode<T> node = head;
+        if (position == 0) {
+            return head;
+        } else if (position > 0) {
+            for (int i = 0; i < position; i++) {
+                node = node.getNext();
+            }
+        }
+        return node;
+    }
+
     public void display() {
         CustomNode<T> node = this.head;
         while (node != null) {

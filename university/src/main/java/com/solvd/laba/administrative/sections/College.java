@@ -114,9 +114,7 @@ public class College extends AdministrativeSection {
 
     @Override
     public ArrayList<? extends AdministrativeSection> getSubSections() {
-        ArrayList<Speciality> response = new ArrayList<Speciality>();
-        response.addAll(this.specialities);
-        return response;
+        return new ArrayList<Speciality>(this.specialities);
     }
 
     public ArrayList<String> getSpecialityDetails(int specialityId) {

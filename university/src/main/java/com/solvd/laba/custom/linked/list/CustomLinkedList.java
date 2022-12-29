@@ -27,7 +27,8 @@ public class CustomLinkedList<T> {
         if (position == 0) {
             this.head = this.head.getNext();
             this.head.setPrevious(null);
-        } else if (position > 0) {
+            this.size--;
+        } else if (position > 0 && position < this.size) {
             CustomNode<T> node = head;
             for (int i = 0; i < position; i++) {
                 node = node.getNext();
@@ -35,7 +36,10 @@ public class CustomLinkedList<T> {
             if (node != null) {
                 node.getPrevious().setNext(node.getNext());
                 node.getNext().setPrevious(node.getPrevious());
+                this.size--;
             }
+        } else {
+            throw new IndexOutOfBoundsException("No CustomNode found in position");
         }
     }
 
@@ -43,12 +47,14 @@ public class CustomLinkedList<T> {
         CustomNode<T> node = head;
         if (position == 0) {
             return head;
-        } else if (position > 0) {
+        } else if (position > 0 && position < this.size) {
             for (int i = 0; i < position; i++) {
                 node = node.getNext();
             }
+            return node;
+        } else {
+            throw new IndexOutOfBoundsException("No CustomNode found in position");
         }
-        return node;
     }
 
     public void display() {

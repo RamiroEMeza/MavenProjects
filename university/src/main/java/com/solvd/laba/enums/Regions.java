@@ -41,17 +41,9 @@ public enum Regions {
 
     public void developmentIncentiveScholarship(Regions region) {
         switch (region) {
-            case SOUTH_AMERICA, AFRICA, OCEANIA, ANTARCTICA:
-                LOGGER.info("True");
-                break;
-
-            case NORTH_AMERICA, EUROPE, ASIA:
-                LOGGER.info("False");
-                break;
-
-            default:
-                LOGGER.error(new NoValidEnum("Enum doesn't exist").toString());
-                break;
+            case SOUTH_AMERICA, AFRICA, OCEANIA, ANTARCTICA -> LOGGER.info("True");
+            case NORTH_AMERICA, EUROPE, ASIA -> LOGGER.info("False");
+            default -> LOGGER.error(new NoValidEnum("Enum doesn't exist").toString());
         }
     }
 

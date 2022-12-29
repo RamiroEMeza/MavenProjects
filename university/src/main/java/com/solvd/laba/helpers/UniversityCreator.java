@@ -53,7 +53,7 @@ public final class UniversityCreator {
         //add subjects to the specialities
         for (SubjectsNames sn : SubjectsNames.values()) {
             try {
-                Subject s = new Subject(sn.toString(), 40,
+                Subject s = new Subject(sn.getPrintableName(), sn.getHours(),
                         teachers.get(UniversityCreator.getRandomInt(0, (teachers.size() - 1))),
                         new Quiz(4, 6, 0.4),
                         new FixedCost(UniversityCreator.getRandomInt(MIN_SMALL_COST, MAX_SMALL_COST)));

@@ -74,9 +74,11 @@ public class University extends AdministrativeSection {
         }
     }
 
-    public void addSpeciality(int collegeIndex, Speciality speciality) {
+    public void addSpeciality(int collegeIndex, Speciality speciality) throws NoCollegesException {
         if (collegeIndex > this.colleges.size()) {
             collegeIndex = this.colleges.size();
+        } else if (collegeIndex < 0) {
+            throw new NoCollegesException("No Colleges in " + this.getName());
         }
         this.colleges.get(collegeIndex).addSpeciality(speciality);
     }

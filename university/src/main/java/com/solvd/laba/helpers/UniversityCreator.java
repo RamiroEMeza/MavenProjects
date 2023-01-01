@@ -2,7 +2,6 @@ package com.solvd.laba.helpers;
 
 import com.solvd.laba.cost.FixedCost;
 import com.solvd.laba.enums.CollegesNames;
-import com.solvd.laba.enums.Regions;
 import com.solvd.laba.enums.SpecialitiesNames;
 import com.solvd.laba.enums.SubjectsNames;
 import com.solvd.laba.exeptions.InvalidIDException;
@@ -46,7 +45,7 @@ public final class UniversityCreator {
                         new Speciality(sn.toString(), sn.ordinal() + 1,
                                 new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST))));
             } catch (NoCollegesException nCE) {
-                throw new NoCollegesException("No Colleges in " + name);
+                throw new NoCollegesException(nCE.getMessage());
             }
         }
 
@@ -66,8 +65,7 @@ public final class UniversityCreator {
                 university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
                         s);
             } catch (NoSpecialtiesFoundException | InvalidIDException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
+                throw new NoSpecialtiesFoundException(e.getMessage());
             }
         }
 

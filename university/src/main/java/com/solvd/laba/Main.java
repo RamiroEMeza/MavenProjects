@@ -65,7 +65,7 @@ public class Main {
             University ohioU = null;
             try {
                 ohioU = universityCreator.create(UNIVERSITY_NAME, teachers, students);
-            } catch (NoCollegesException | InvalidIDException nCE) {
+            } catch (NoCollegesException | NoSpecialtiesFoundException | InvalidIDException nCE) {
                 LOGGER.error(nCE.getMessage());
             }
 
@@ -97,13 +97,14 @@ public class Main {
             }
 
             do {
-                try {//Ask user if he wants info about any speciality
+                //BufferedReader readRequest = new BufferedReader(new InputStreamReader(System.in));
+                try (BufferedReader readResource = new BufferedReader(new InputStreamReader(System.in))) {//Ask user if he wants info about any speciality
                     LOGGER.info("\nIf you want to know the cost of any of ours specialities, " +
                             "please enter its " + "(id) number. " + "\nOr -1 to search students."
                             + "\nOr -2 to Exam Students."
                             + "\nOr -3 to Search Results."
                             + "\nAny other character to exit");
-                    userRequest = Integer.parseInt(readRequest.readLine());
+                    userRequest = Integer.parseInt(readResource.readLine());
                 } catch (Exception e) {
                     LOGGER.info("User didn't ask about any speciality and enter an non integer data, " +
                             "setting userRequest=0");

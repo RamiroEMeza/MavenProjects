@@ -4,8 +4,13 @@ import java.io.IOException;
 
 public class ReaderMain {
     public static void main(String[] args) throws IOException {
-        Count.countUniqueWords("university/src/main/resources/lorem.txt",
-                "university/src/main/resources/lorem-count.txt");
+        try {
+            Count.countUniqueWords("university/src/main/resources/lorem.txt",
+                    "university/src/main/resources/lorem-count.txt");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
 
         String directory = "university/src/main/resources/";
         System.out.print("Last modified file in " + directory + ": ");

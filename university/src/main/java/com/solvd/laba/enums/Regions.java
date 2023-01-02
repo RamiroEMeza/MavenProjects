@@ -13,7 +13,7 @@ public enum Regions {
     OCEANIA(8600000, 8, 10),
     ANTARCTICA(2500, -6, 12),
     ASIA(44579000, 2, 12);
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(Regions.class);
     private final int LEFT_OFFSET;
     private final int RIGHT_OFFSET;
     private final int area;

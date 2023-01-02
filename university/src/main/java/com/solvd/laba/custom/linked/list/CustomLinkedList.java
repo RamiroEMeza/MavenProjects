@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 
 public class CustomLinkedList<T> {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(CustomLinkedList.class);
     private CustomNode<T> head;
     private CustomNode<T> tail;
     private int size;

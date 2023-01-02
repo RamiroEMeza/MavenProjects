@@ -19,7 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Main {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private final static Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
@@ -66,13 +66,13 @@ public class Main {
             try {
                 ohioU = universityCreator.create(UNIVERSITY_NAME, teachers, students);
             } catch (NoCollegesException | NoSpecialtiesFoundException | InvalidIDException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error(e);
             }
 
             try {
                 Main.isEqualsUniversities(ohioU, ohioU);
             } catch (NoUniversityInReferenceException nCE) {
-                LOGGER.error(nCE.getMessage());
+                LOGGER.error(nCE);
             }
 
             //Print colleges
@@ -82,7 +82,7 @@ public class Main {
                 response = ohioU != null ? ohioU.getColleges() : null;
                 LOGGER.info(response != null ? response.toString() : null);
             } catch (NoCollegesException nCE) {
-                LOGGER.error(nCE.getMessage());
+                LOGGER.error(nCE);
             }
 
             //Print specialities
@@ -95,18 +95,19 @@ public class Main {
             } catch (NoSpecialtiesFoundException e) {
                 LOGGER.error(e + e.getMessage());
             } catch (NullPointerException e) {
-                LOGGER.error(e.getClass() + e.getMessage());
+                LOGGER.error(e);
             }
 
             do {
                 //BufferedReader readRequest = new BufferedReader(new InputStreamReader(System.in));
-                try (BufferedReader readResource = new BufferedReader(new InputStreamReader(System.in))) {//Ask user if he wants info about any speciality
-                    LOGGER.info("\nIf you want to know the cost of any of ours specialities, " +
-                            "please enter its " + "(id) number. " + "\nOr -1 to search students."
-                            + "\nOr -2 to Exam Students."
-                            + "\nOr -3 to Search Results."
-                            + "\nAny other character to exit");
-                    userRequest = Integer.parseInt(readResource.readLine());
+                try {//Ask user if he wants info about any speciality
+                    LOGGER.info("""
+                            If you want to know the cost of any of ours specialities, please enter its (id) number.\s
+                            Or -1 to search students.
+                            Or -2 to Exam Students.
+                            Or -3 to Search Results.
+                            Any other character to exit""");
+                    userRequest = Integer.parseInt(readRequest.readLine());
                 } catch (Exception e) {
                     LOGGER.info("User didn't ask about any speciality and enter an non integer data, " +
                             "setting userRequest=0");
@@ -150,20 +151,20 @@ public class Main {
                         userRequest = 0;
                     }
                     switch (userRequest) {
-                        case 1:
+                        case 1 -> {
                             for (Teacher teacher : teachers) {
                                 teacher.printSearchedStudents((p) -> p.getRegion().equals(Regions.EUROPE));
                             }
-                            break;
-                        case 2:
+                        }
+                        case 2 -> {
                             for (Teacher teacher : teachers) {
                                 teacher.printSearchedStudents(((p) -> p.getRegion().equals(Regions.SOUTH_AMERICA)));
                             }
-                            break;
-                        default:
+                        }
+                        default -> {
                             LOGGER.info("User didn't ask about any Region setting userRequest=0");
                             userRequest = 0;
-                            break;
+                        }
                     }
                 } else if (userRequest == -2) {
                     LOGGER.info("Teacher 0: EXAM STUDENTS");

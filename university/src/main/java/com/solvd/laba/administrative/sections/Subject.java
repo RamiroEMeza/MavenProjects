@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Subject extends AdministrativeSection {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(Subject.class);
     private int hours;
     private ArrayList<Teacher> teachers;
     private ArrayList<Quiz> quizes;
@@ -36,6 +36,7 @@ public class Subject extends AdministrativeSection {
         this.addQuiz(quiz);
         this.students = new ArrayList<>();
         this.results = new ArrayList<>();
+        this.backupResults = new CustomLinkedList<>();
         teacher.addSubject(this);
     }
 

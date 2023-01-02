@@ -51,7 +51,6 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
     public void examStudents() {
         for (Subject subject : this.currentlyAsignedSubjects) {
             subject.exam();
-
         }
     }
 

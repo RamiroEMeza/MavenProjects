@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Reflection {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger(Reflection.class);
 
     public static void print(String types, Object[] names) {
         LOGGER.info("List of " + types + " constructors: ");

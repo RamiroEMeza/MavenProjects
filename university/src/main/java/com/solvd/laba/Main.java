@@ -65,8 +65,8 @@ public class Main {
             University ohioU = null;
             try {
                 ohioU = universityCreator.create(UNIVERSITY_NAME, teachers, students);
-            } catch (NoCollegesException | NoSpecialtiesFoundException | InvalidIDException nCE) {
-                LOGGER.error(nCE.getMessage());
+            } catch (NoCollegesException | NoSpecialtiesFoundException | InvalidIDException e) {
+                LOGGER.error(e.getMessage());
             }
 
             try {
@@ -92,7 +92,9 @@ public class Main {
                 for (String word : response) {
                     LOGGER.info("-" + word + "\n");
                 }
-            } catch (NoSpecialtiesFoundException | NullPointerException e) {
+            } catch (NoSpecialtiesFoundException e) {
+                LOGGER.error(e + e.getMessage());
+            } catch (NullPointerException e) {
                 LOGGER.error(e.getClass() + e.getMessage());
             }
 

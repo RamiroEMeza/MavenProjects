@@ -45,7 +45,7 @@ public final class UniversityCreator {
                         new Speciality(sn.toString(), sn.ordinal() + 1,
                                 new FixedCost(UniversityCreator.getRandomInt(MIN_BIG_COST, MAX_BIG_COST))));
             } catch (NoCollegesException nCE) {
-                throw new NoCollegesException(nCE.getMessage());
+                throw nCE;
             }
         }
 
@@ -64,8 +64,10 @@ public final class UniversityCreator {
 
                 university.addSubjectToSpeciality(UniversityCreator.getRandomInt(1, university.getSpecialities().size()),
                         s);
-            } catch (NoSpecialtiesFoundException | InvalidIDException e) {
-                throw new NoSpecialtiesFoundException(e.getMessage());
+            } catch (NoSpecialtiesFoundException NSFE) {
+                throw NSFE;
+            } catch (InvalidIDException IIDE) {
+                throw IIDE;
             }
         }
 

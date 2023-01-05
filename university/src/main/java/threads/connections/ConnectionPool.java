@@ -3,6 +3,7 @@ package threads.connections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class ConnectionPool {
@@ -12,15 +13,17 @@ public class ConnectionPool {
     private static final int INITIAL_POOL_SIZE = 5;
     private int currentCreatedConnections = -1;
     private static final int LIMIT_OF_THREADS = 5;
+    private ArrayList<Long> currentWaitingThreads;
 
 
     ConnectionPool() {
         connectionPooll = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
+        currentWaitingThreads = new ArrayList<>();
     }
 
     public synchronized Connection connect() throws InterruptedException {//this should wait, read thread safe collection
         while (connectionPooll.isEmpty() && currentCreatedConnections == LIMIT_OF_THREADS - 1) {
-            LOGGER.info("Someone ask for a connection but must wait (" + currentCreatedConnections + ")********");
+            LOGGER.info("One or more threads waiting for a connection ********");
             Thread.sleep(1000);
         }
 
@@ -29,13 +32,14 @@ public class ConnectionPool {
             LOGGER.info("Connection created and provided (" + currentCreatedConnections + ")");
             return new Connection();
         } else if (!connectionPooll.isEmpty()) {
-            LOGGER.info("Connection found and provided (" + currentCreatedConnections + ")");
+            LOGGER.info("Connection found and provided");
             return connectionPooll.poll();
         }
         return null;
     }
 
     public void disconnect(Connection connection) {
+        LOGGER.info("A thread has disconnected");
         if (connection != null) {
             connectionPooll.add(connection);
         }
@@ -43,6 +47,7 @@ public class ConnectionPool {
 
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
+        LOGGER.info("START");
         ConnectionPool connectionP = new ConnectionPool();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
@@ -87,7 +92,7 @@ public class ConnectionPool {
         connectionP.disconnect(c1.get());
 
 
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         connectionP.disconnect(c2.get());
 
         if (c6.isDone() && !c6.isCancelled()) {
@@ -102,6 +107,8 @@ public class ConnectionPool {
         if (c6.isDone() && !c6.isCancelled()) {
             LOGGER.info("c6 says: I have a connection " + c6.get());
         }
+
+        LOGGER.info("END");
 
         //*********Kinda works:
 

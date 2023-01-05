@@ -51,12 +51,12 @@ public class ClientsRunner {
         connectionP.disconnect(c2.get());
 
         Thread.sleep(4000);
-        if (c7.isDone() && !c7.isCancelled()) {
-            LOGGER.info("c7 says: I have a connection " + c7.get());
-        }
-
         if (c6.isDone() && !c6.isCancelled()) {
             LOGGER.info("c6 says: I have a connection " + c6.get());
+        }
+
+        if (c7.isDone() && !c7.isCancelled()) {
+            LOGGER.info("c7 says: I have a connection " + c7.get());
         }
 
         LOGGER.info("END");

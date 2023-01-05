@@ -8,7 +8,6 @@ import java.util.concurrent.*;
 
 public class ConnectionPool {
     private final static Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
-    //thread safe collection
     private ArrayBlockingQueue<CustomConnection> customConnectionPooll;
     private static final int INITIAL_POOL_SIZE = 5;
     private int currentCreatedConnections = -1;

@@ -7,15 +7,15 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-public class Writer implements Runnable {
+public class ThreadPractice implements Runnable {
     private int id;
-    private final static Logger LOGGER = LogManager.getLogger(Writer.class);
+    private final static Logger LOGGER = LogManager.getLogger(ThreadPractice.class);
 
     public static int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    Writer(int id) {
+    ThreadPractice(int id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class Writer implements Runnable {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         CompletableFuture<String> message = CompletableFuture.supplyAsync(() -> {
-            if (Writer.getRandomInt(1, 8) % 2 == 0) {
+            if (ThreadPractice.getRandomInt(1, 8) % 2 == 0) {
                 return "Info is even";
             }
             return "Info is odd";
@@ -44,19 +44,11 @@ public class Writer implements Runnable {
         }
 
         ExecutorService es = Executors.newFixedThreadPool(5);
-        ArrayList<Writer> writers = new ArrayList<>();
+        ArrayList<ThreadPractice> threadPractices = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            writers.add(new Writer(i));
+            threadPractices.add(new ThreadPractice(i));
         }
-        writers.forEach(es::execute);
-//        for (int i = 0; i < 10; i++) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//            LOGGER.info("This is written without threads");
-//        }
+        threadPractices.forEach(es::execute);
         es.shutdown();//this guarantees that all logic is executed
         LocalTime time = LocalTime.now();
         LOGGER.info("This is written by main " + time.toString());

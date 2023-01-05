@@ -18,7 +18,7 @@ public class ConnectionPool {
         connectionPooll = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
     }
 
-    public Connection connect() throws InterruptedException {//this should wait, read thread safe collection
+    public synchronized Connection connect() throws InterruptedException {//this should wait, read thread safe collection
         while (connectionPooll.isEmpty() && currentCreatedConnections == LIMIT_OF_THREADS - 1) {
             LOGGER.info("Someone ask for a connection but must wait (" + currentCreatedConnections + ")********");
             Thread.sleep(1000);
@@ -83,18 +83,24 @@ public class ConnectionPool {
             LOGGER.info("c7 says: I have a connection " + c7.get());
         }
 
-        Thread.sleep(4000);
-
+        Thread.sleep(8000);
         connectionP.disconnect(c1.get());
 
+
         Thread.sleep(4000);
+        connectionP.disconnect(c2.get());
 
         if (c6.isDone() && !c6.isCancelled()) {
             LOGGER.info("c6 says: I have a connection " + c6.get());
         }
 
+        Thread.sleep(4000);
         if (c7.isDone() && !c7.isCancelled()) {
             LOGGER.info("c7 says: I have a connection " + c7.get());
+        }
+
+        if (c6.isDone() && !c6.isCancelled()) {
+            LOGGER.info("c6 says: I have a connection " + c6.get());
         }
 
         //*********Kinda works:

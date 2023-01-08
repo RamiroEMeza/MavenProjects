@@ -14,7 +14,7 @@ public class College extends AdministrativeSection {
         this.id = id;
         this.specialities = new ArrayList<Speciality>();
         this.subDependencies = this.specialities;//doing this because I need two pointers, subDependencies is needed for
-        // getStudentsArrayList() in AdministrativeSection, colleges is needed for the streams in some methods of College
+        // getStudentsArrayList() in AdministrativeSection, specialities is needed for the streams in some methods of College
     }
 
     public boolean haveSpecialityById(int specialityId) {

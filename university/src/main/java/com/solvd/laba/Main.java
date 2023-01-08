@@ -136,9 +136,7 @@ public class Main {
                         LOGGER.info("User ask about the details of an speciality");
                         LOGGER.info("\nIn " + speciality + " you will have:");
                         response = ohioU.getSpecialityInfo(specialityId);
-                        for (String line : response) {
-                            LOGGER.info(line);
-                        }
+                        response.forEach(LOGGER::info);
                     }
                 } else if (userRequest == -1) {
                     LOGGER.info("Europe = 1");

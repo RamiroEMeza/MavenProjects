@@ -6,11 +6,11 @@ import com.solvd.laba.exeptions.NoCollegesException;
 import com.solvd.laba.exeptions.NoSpecialtiesFoundException;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class University extends AdministrativeSection {
     private ArrayList<College> colleges;
@@ -84,20 +84,18 @@ public class University extends AdministrativeSection {
     }
 
     public void deleteSpeciality(int specialityId) {
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                college.removeSpeciality(specialityId);
-            }
-        }
+        this.colleges.stream().filter(c -> c.haveSpecialityById(specialityId)).findFirst().ifPresent(c -> c.removeSpeciality(specialityId));
+//        for (College college : this.colleges) {
+//            if (college.haveSpecialityById(specialityId)) {
+//                college.removeSpeciality(specialityId);
+//            }
+//        }
     }
 
     public void addSubjectToSpeciality(int specialityId, Subject subject) throws InvalidIDException {
         AtomicBoolean added = new AtomicBoolean(false);
 
-        Optional<College> objective = this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId)).
-                findFirst();
-
-        objective.ifPresent(college -> {
+        this.colleges.stream().filter(college -> college.haveSpecialityById(specialityId)).findFirst().ifPresent(college -> {
             college.addSubjectToSpeciality(specialityId, subject);
             added.set(true);
         });
@@ -111,18 +109,12 @@ public class University extends AdministrativeSection {
         if (colleges.size() < 1) {
             throw new NoCollegesException("No Colleges in " + this.getName());
         }
-        ArrayList<String> response = new ArrayList<>();
-        for (College c : this.colleges) {
-            response.add(c.getName());
-        }
-        return response;
+        return this.colleges.stream().map(College::getName).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<String> getSpecialities() throws NoSpecialtiesFoundException {
         ArrayList<String> response = new ArrayList<>();
-        for (College c : this.colleges) {
-            response.addAll(c.getSpecialities());
-        }
+        this.colleges.stream().map(College::getSpecialities).forEach(response::addAll);
 
         if (response.isEmpty()) {
             throw new NoSpecialtiesFoundException(this.getName() + " has no specialities");
@@ -131,12 +123,9 @@ public class University extends AdministrativeSection {
     }
 
     public String getSpecialityById(int specialityId) {
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                return college.getSpecialityById(specialityId);
-            }
-        }
-        return null;
+        Optional<College> f = this.colleges.stream().filter(c -> c.haveSpecialityById(specialityId)).
+                findFirst();
+        return f.map(college -> college.getSpecialityById(specialityId)).orElse(null);
     }
 
     public int getLastSpecialityId() throws NoSpecialtiesFoundException {
@@ -150,20 +139,17 @@ public class University extends AdministrativeSection {
     }
 
     public ArrayList<String> getSpecialityInfo(int specialityId) {
-        ArrayList<String> response = new ArrayList<>();
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                response.addAll(college.getSpecialityDetails(specialityId));
-            }
+        ArrayList<String> response;
+        try {
+            response = new ArrayList<>(this.colleges.stream().filter(c -> c.haveSpecialityById(specialityId))
+                    .findFirst().map(c -> c.getSpecialityDetails(specialityId)).get());
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException(e);
         }
         return response;
     }
 
     public void deleteSubject(String subject, int specialityId) {
-        for (College college : this.colleges) {
-            if (college.haveSpecialityById(specialityId)) {
-                college.deleteSubject(subject);
-            }
-        }
+        this.colleges.stream().filter(c -> c.haveSpecialityById(specialityId)).forEach(c -> c.deleteSubject(subject));
     }
 }

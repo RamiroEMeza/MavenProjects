@@ -45,10 +45,13 @@ public class ClientsRunner {
 
         Thread.sleep(8000);
         connectionP.disconnect(c1.get());
+        connectionP.printAvailableConnections();
 
 
         Thread.sleep(6000);
+        connectionP.printAvailableConnections();
         connectionP.disconnect(c2.get());
+        connectionP.printAvailableConnections();
 
         Thread.sleep(4000);
         if (c6.isDone() && !c6.isCancelled()) {
@@ -58,6 +61,8 @@ public class ClientsRunner {
         if (c7.isDone() && !c7.isCancelled()) {
             LOGGER.info("c7 says: I have a connection " + c7.get());
         }
+
+        connectionP.printAvailableConnections();
 
         LOGGER.info("END");
     }

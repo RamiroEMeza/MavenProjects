@@ -3,7 +3,6 @@ package threads.connections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class ConnectionPool {
@@ -13,6 +12,9 @@ public class ConnectionPool {
     private int currentCreatedConnections = -1;
     private static final int LIMIT_OF_THREADS = 5;
 
+    public void printAvailableConnections() {
+        LOGGER.info("ConnectionPool has: " + customConnectionPooll.size() + " available connections");
+    }
 
     ConnectionPool() {
         customConnectionPooll = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);

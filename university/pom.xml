@@ -121,6 +121,9 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <!--This plugin analyzes all our dependencies and either fail the build (if configured) -->
+                    <!--or produce log warnings once one of our dependency is part of a
+                    Common Vulnerabilities and Exposures (CVE).-->
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>7.1.1</version>

@@ -167,10 +167,6 @@ public class Main {
                 } else if (userRequest == -2) {
                     LOGGER.info("Teacher 0: EXAM STUDENTS");
                     teachers.get(0).examStudents();
-                    //response = teachers.get(0).giveResults();
-                    //LOGGER.info(response.toString());
-                    //ohioU.orderExams();
-                    //ohioU.requestResultsExam(0);
                     teachers.get(0).giveBackupResults();//Using custom linked list
                 } else if (userRequest == -3) {
                     try {

@@ -93,7 +93,7 @@ public class Teacher extends Member implements IExamStudents, IGiveResults {
         if (toPrint.size() > 0) {
             toPrint.forEach(r -> LOGGER.info(r.getStudent() + " get: " + r.getResult() + " in " + r.getSubject()));
         } else {
-            LOGGER.warn("We didn't exam the students yet");
+            LOGGER.warn("We didn't find any exams. Try ordering exams");
         }
 
     }

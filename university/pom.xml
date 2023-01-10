@@ -118,6 +118,12 @@
                                 <mainClass>threads.connections.ClientsRunner</mainClass>
                             </configuration>
                         </execution>
+                        <execution>
+                            <id>Reflection</id>
+                            <configuration>
+                                <mainClass>com.solvd.laba.reflection.Reflection</mainClass>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
                 <plugin>

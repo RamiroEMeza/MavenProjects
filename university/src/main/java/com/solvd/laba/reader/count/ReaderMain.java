@@ -4,6 +4,7 @@ import com.solvd.laba.Main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -11,21 +12,26 @@ public class ReaderMain {
     private final static Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
+        File lorem = new File("src/main/resources/lorem.txt");
+        File loremCount = new File("src/main/resources/lorem-count.txt");
         try {
-            Count.countUniqueWords("C:/Users/Administrador/IdeaProjects/newmaven/university/src/main/resources/lorem.txt",
-                    "C:/Users/Administrador/IdeaProjects/newmaven/university/src/main/resources/lorem-count.txt");
+            LOGGER.info("Counting unique words from: ...src/main/resources/lorem.txt");
+            Count.countUniqueWords(lorem.getAbsolutePath(),
+                    loremCount.getAbsolutePath());
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
         }
 
 
-        String directory = "C:/Users/Administrador/IdeaProjects/newmaven/university/src/main/resources";
+        String directory = "../university/src/main/resources";
         LOGGER.info("Last modified file in " + directory + ": ");
         LOGGER.info(Files.getLastModified(directory).getName());
+
+
         try {
-            Files.renameFile("C:/Users/Administrador/IdeaProjects/newmaven/university/src/main/resources/changeMyName.txt", "changed.txt");
+            Files.renameFile("src/main/resources/changeMyName.txt", "changed.txt");
         } catch (FileNotFoundException e) {
-            Files.renameFile("C:/Users/Administrador/IdeaProjects/newmaven/university/src/main/resources/changed.txt", "changeMyName.txt");
+            Files.renameFile("src/main/resources/changed.txt", "changeMyName.txt");
         }
 
         String wordToRotate = "rotateMe";

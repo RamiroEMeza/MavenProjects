@@ -42,6 +42,9 @@ public class Reflection {
 
             LOGGER.info(reflectedResult.toString());
 
+            Result secondReflectedResult = (Result) constructors[1].newInstance("Mourinho", "Football", true, 9);
+
+            LOGGER.info(secondReflectedResult.toString());
             //Result reflectedResult = (Result) reflectedClass.getConstructor().newInstance();
             //LOGGER.info(reflectedResult.toString());
 
